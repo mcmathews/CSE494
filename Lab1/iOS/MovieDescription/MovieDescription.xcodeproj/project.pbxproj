@@ -14,6 +14,7 @@
 		9A7F0D9F1C4EEB6D0099DF1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A7F0D9D1C4EEB6D0099DF1A /* LaunchScreen.storyboard */; };
 		9A7F0DAA1C4EEB6D0099DF1A /* MovieDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F0DA91C4EEB6D0099DF1A /* MovieDescriptionTests.swift */; };
 		9A7F0DB51C4EEB6D0099DF1A /* MovieDescriptionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F0DB41C4EEB6D0099DF1A /* MovieDescriptionUITests.swift */; };
+		9A7F0DC31C4EF1710099DF1A /* MovieDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F0DC21C4EF1710099DF1A /* MovieDescription.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		9A7F0DB01C4EEB6D0099DF1A /* MovieDescriptionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieDescriptionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A7F0DB41C4EEB6D0099DF1A /* MovieDescriptionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDescriptionUITests.swift; sourceTree = "<group>"; };
 		9A7F0DB61C4EEB6D0099DF1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A7F0DC21C4EF1710099DF1A /* MovieDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDescription.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				9A7F0D941C4EEB6D0099DF1A /* AppDelegate.swift */,
 				9A7F0D961C4EEB6D0099DF1A /* ViewController.swift */,
+				9A7F0DC21C4EF1710099DF1A /* MovieDescription.swift */,
 				9A7F0D981C4EEB6D0099DF1A /* Main.storyboard */,
 				9A7F0D9B1C4EEB6D0099DF1A /* Assets.xcassets */,
 				9A7F0D9D1C4EEB6D0099DF1A /* LaunchScreen.storyboard */,
@@ -257,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A7F0D971C4EEB6D0099DF1A /* ViewController.swift in Sources */,
+				9A7F0DC31C4EF1710099DF1A /* MovieDescription.swift in Sources */,
 				9A7F0D951C4EEB6D0099DF1A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
