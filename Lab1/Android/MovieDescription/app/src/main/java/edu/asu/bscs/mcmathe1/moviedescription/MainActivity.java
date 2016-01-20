@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 /**
- * Copyright 2015 Michael Mathews
+ * Copyright 2016 Michael Mathews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
