@@ -24,7 +24,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        NSLog("\(self.dynamicType): viewDidLoad")
+        // This is called when the app is first opened
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,7 +34,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func handleButtonPress(sender: UIButton) {
-        print("A thing will be done")
+        NSLog("A thing will be done")
         
         let alert = UIAlertController(title: "The thing", message: "This is the thing you wanted to do", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "I'm done with the thing", style: UIAlertActionStyle.Default, handler: nil))
