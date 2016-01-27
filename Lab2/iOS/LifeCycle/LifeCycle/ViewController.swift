@@ -36,6 +36,7 @@ class ViewController: UIViewController {
     @IBAction func handleButtonPress(sender: UIButton) {
         NSLog("A thing will be done")
         
+        // put this in before the requirements changed so I decided to leave it.
         let alert = UIAlertController(title: "The thing", message: "This is the thing you wanted to do", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "I'm done with the thing", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
