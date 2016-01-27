@@ -15,7 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="edu.asu.bscs.mcmathe1.lifecycle.AlertActivity"></activity>
+        <activity android:name="edu.asu.bscs.mcmathe1.lifecycle.AlertActivity" android:theme="@style/AppDialogTheme"></activity>
     </application>
 
 </manifest>

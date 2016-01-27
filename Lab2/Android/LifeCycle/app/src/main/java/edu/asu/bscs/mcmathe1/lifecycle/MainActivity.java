@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import mcmathe1.bscs.asu.edu.lifecycle.R;
 
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         logMethodName("onDestroy()");
     }
 
-    protected void handleButtonPress() {
+    public void handleButtonPress(View view) {
         Log.w(this.getClass().getSimpleName(), "Button pressed");
 
         startActivity(new Intent(this, AlertActivity.class));

@@ -3,6 +3,7 @@ package edu.asu.bscs.mcmathe1.lifecycle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import mcmathe1.bscs.asu.edu.lifecycle.R;
 
@@ -76,7 +77,7 @@ public class AlertActivity extends AppCompatActivity {
         logMethodName("onDestroy()");
     }
 
-	protected void handleButtonPress() {
+	public void handleOkButtonPress(View view) {
 		Log.w(this.getClass().getSimpleName(), "Ok button pressed");
 
 		finish();
