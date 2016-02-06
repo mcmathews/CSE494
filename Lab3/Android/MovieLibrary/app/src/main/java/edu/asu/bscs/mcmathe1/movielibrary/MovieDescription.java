@@ -22,111 +22,111 @@ import org.json.JSONObject;
  * @version 2/4/2016
  */
 public class MovieDescription {
-    private String title;
-    private int year;
-    private String rated;
-    private String released;
-    private String runtime;
-    private String genre;
-    private String actors;
-    private String plot;
+	private String title;
+	private int year;
+	private String rated;
+	private String released;
+	private String runtime;
+	private String genre;
+	private String actors;
+	private String plot;
 
-    public MovieDescription(String json) {
-        try {
-            JSONObject jo = new JSONObject(json);
-            this.title = jo.getString("Title");
-            this.year = Integer.parseInt(jo.getString("Year"));
-            this.rated = jo.getString("Rated");
-            this.released = jo.getString("Released");
-            this.runtime = jo.getString("Runtime");
-            this.genre = jo.getString("Genre");
-            this.actors = jo.getString("Actors");
-            this.plot = jo.getString("Plot");
+	public MovieDescription() {}
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
+	public MovieDescription(JSONObject jo) {
+		try {
+			this.title = jo.getString("Title");
+			this.year = Integer.parseInt(jo.getString("Year"));
+			this.rated = jo.getString("Rated");
+			this.released = jo.getString("Released");
+			this.runtime = jo.getString("Runtime");
+			this.genre = jo.getString("Genre");
+			this.actors = jo.getString("Actors");
+			this.plot = jo.getString("Plot");
 
-    public String toJsonString() {
-        try {
-            return new JSONObject()
-                    .accumulate("Title", title)
-                    .accumulate("Year", year)
-                    .accumulate("Rated", rated)
-                    .accumulate("Released", released)
-                    .accumulate("Runtime", runtime)
-                    .accumulate("Genre", genre)
-                    .accumulate("Actors", actors)
-                    .accumulate("Plot", plot)
-                    .toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+		} catch (JSONException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public String toJsonString() {
+		try {
+			return new JSONObject()
+					       .accumulate("Title", title)
+					       .accumulate("Year", year)
+					       .accumulate("Rated", rated)
+					       .accumulate("Released", released)
+					       .accumulate("Runtime", runtime)
+					       .accumulate("Genre", genre)
+					       .accumulate("Actors", actors)
+					       .accumulate("Plot", plot)
+					       .toString();
+		} catch (JSONException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public int getYear() {
-        return year;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setYear(int year) {
-        this.year = year;
-    }
+	public int getYear() {
+		return year;
+	}
 
-    public String getRated() {
-        return rated;
-    }
+	public void setYear(int year) {
+		this.year = year;
+	}
 
-    public void setRated(String rated) {
-        this.rated = rated;
-    }
+	public String getRated() {
+		return rated;
+	}
 
-    public String getReleased() {
-        return released;
-    }
+	public void setRated(String rated) {
+		this.rated = rated;
+	}
 
-    public void setReleased(String released) {
-        this.released = released;
-    }
+	public String getReleased() {
+		return released;
+	}
 
-    public String getRuntime() {
-        return runtime;
-    }
+	public void setReleased(String released) {
+		this.released = released;
+	}
 
-    public void setRuntime(String runtime) {
-        this.runtime = runtime;
-    }
+	public String getRuntime() {
+		return runtime;
+	}
 
-    public String getGenre() {
-        return genre;
-    }
+	public void setRuntime(String runtime) {
+		this.runtime = runtime;
+	}
 
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
+	public String getGenre() {
+		return genre;
+	}
 
-    public String getActors() {
-        return actors;
-    }
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 
-    public void setActors(String actors) {
-        this.actors = actors;
-    }
+	public String getActors() {
+		return actors;
+	}
 
-    public String getPlot() {
-        return plot;
-    }
+	public void setActors(String actors) {
+		this.actors = actors;
+	}
 
-    public void setPlot(String plot) {
-        this.plot = plot;
-    }
+	public String getPlot() {
+		return plot;
+	}
+
+	public void setPlot(String plot) {
+		this.plot = plot;
+	}
 }

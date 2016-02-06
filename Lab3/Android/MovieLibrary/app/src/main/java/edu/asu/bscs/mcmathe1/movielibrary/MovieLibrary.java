@@ -1,5 +1,6 @@
 package edu.asu.bscs.mcmathe1.movielibrary;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,15 +25,16 @@ public class MovieLibrary {
 
     private List<MovieDescription> movieDescriptions;
 
-    public MovieLibrary(List<MovieDescription> movieDescriptions) {
-        this.movieDescriptions = movieDescriptions;
+    public MovieLibrary() {
+	    movieDescriptions = new ArrayList<>();
     }
 
     public List<MovieDescription> getMovieDescriptions() {
         return movieDescriptions;
     }
 
-    public void setMovieDescriptions(List<MovieDescription> movieDescriptions) {
+    public MovieLibrary setMovieDescriptions(List<MovieDescription> movieDescriptions) {
         this.movieDescriptions = movieDescriptions;
+        return this;
     }
 }

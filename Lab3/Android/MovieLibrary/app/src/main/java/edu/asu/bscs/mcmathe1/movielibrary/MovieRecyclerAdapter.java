@@ -1,26 +1,44 @@
 package edu.asu.bscs.mcmathe1.movielibrary;
 
 import android.app.Activity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
 
-
-
+/**
+ * Copyright 2016 Michael Mathews
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @author Michael Mathews    mailto:Michael.C.Mathews@asu.edu
+ * @version 2/4/2016
+ */
 public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolder> {
 
     private MovieLibrary library;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView movieTitle;
+        public CardView movieListLayout;
 
-        public ViewHolder(TextView v){
-            super(v);
-            movieTitle = v;
+        public ViewHolder(CardView movieListLayout){
+            super(movieListLayout);
+            this.movieListLayout = movieListLayout;
         }
     }
 
@@ -30,20 +48,14 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
 
     @Override
     public MovieRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        ViewHolder vh = new MovieRecyclerAdapter.ViewHolder(new TextView(parent.getContext()));
-        try {
-            View movieView = LayoutInflater.from(parent.getContext()).inflate(R.layout.a_text_view, parent, false);
-            TextView atv = (TextView) movieView.findViewById(R.id.hwTV);
-            vh = new ViewHolder(atv);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return vh;
+	    CardView listMovieLayout = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.view_movie_list, parent, false);
+	    return new ViewHolder(listMovieLayout);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.movieTitle.setText(library.getMovieDescriptions().get(position).getTitle());
+	    TextView movieTitleView = (TextView) holder.movieListLayout.findViewById(R.id.movie_list_title);
+	    movieTitleView.setText(library.getMovieDescriptions().get(position).getTitle());
     }
 
     @Override
