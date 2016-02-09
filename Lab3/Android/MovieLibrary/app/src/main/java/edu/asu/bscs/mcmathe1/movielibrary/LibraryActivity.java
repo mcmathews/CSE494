@@ -53,7 +53,7 @@ public class LibraryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(this.getResources().openRawResource(R.raw.library)))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.library)))) {
 	        StringBuilder sb = new StringBuilder();
 	        String line;
 	        while ((line = reader.readLine()) != null) {
@@ -97,35 +97,36 @@ public class LibraryActivity extends AppCompatActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		if (intent == null || intent.getExtras() == null) {
-			return;
-		}
-		Bundle extras = intent.getExtras();
+		if (resultCode == RESULT_OK) {
+			if (requestCode == ADD_EDIT_MOVIE_REQUEST_CODE) {
+				Bundle extras = intent.getExtras();
 
-		int movieIndex = extras.getInt(MOVIE_INDEX_KEY, -1);
-		String movieJson = extras.getString(MOVIE_DESCRIPTION_KEY);
+				int movieIndex = extras.getInt(MOVIE_INDEX_KEY, -1);
+				String movieJson = extras.getString(MOVIE_DESCRIPTION_KEY);
 
-		Log.w(getClass().getSimpleName(), "onActivityResult called with result: " + movieJson);
+				Log.w(getClass().getSimpleName(), "onActivityResult called with result: " + movieJson);
 
-		if (movieJson != null) {
-			MovieDescription movie;
-			try {
-				movie = new MovieDescription(new JSONObject(movieJson));
-			} catch (JSONException e) {
-				throw new RuntimeException(e);
-			}
+				if (movieJson != null) {
+					MovieDescription movie;
+					try {
+						movie = new MovieDescription(new JSONObject(movieJson));
+					} catch (JSONException e) {
+						throw new RuntimeException(e);
+					}
 
-			if (movieIndex >= 0) {
-				library.getMovieDescriptions().set(movieIndex, movie);
-				libraryView.getAdapter().notifyItemChanged(movieIndex);
-			} else {
-				library.getMovieDescriptions().add(movie);
-				libraryView.getAdapter().notifyItemInserted(libraryView.getAdapter().getItemCount());
-			}
-		} else {
-			if (movieIndex >= 0) {
-				library.getMovieDescriptions().remove(movieIndex);
-				libraryView.getAdapter().notifyItemRemoved(movieIndex);
+					if (movieIndex >= 0) {
+						library.getMovieDescriptions().set(movieIndex, movie);
+						libraryView.getAdapter().notifyItemChanged(movieIndex);
+					} else {
+						library.getMovieDescriptions().add(movie);
+						libraryView.getAdapter().notifyItemInserted(libraryView.getAdapter().getItemCount());
+					}
+				} else {
+					if (movieIndex >= 0) {
+						library.getMovieDescriptions().remove(movieIndex);
+						libraryView.getAdapter().notifyItemRemoved(movieIndex);
+					}
+				}
 			}
 		}
 
