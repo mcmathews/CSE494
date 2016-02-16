@@ -29,33 +29,15 @@ class MovieDescription {
     var actors: String
     var plot: String
     
-    init(jsonStr: String) {
-        self.title = ""
-        self.year = 0
-        self.rated = ""
-        self.released = ""
-        self.runtime = ""
-        self.genre = ""
-        self.actors = ""
-        self.plot = ""
-        if let data: NSData = jsonStr.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                let dict = try NSJSONSerialization.JSONObjectWithData(data, options:.MutableContainers) as?[String:AnyObject]
-                
-                self.title = (dict!["Title"] as? String)!
-                self.year = (Int((dict!["Year"] as? String)!))!
-                self.rated = (dict!["Rated"] as? String)!
-                self.released = (dict!["Released"] as? String)!
-                self.runtime = (dict!["Runtime"] as? String)!
-                self.genre = (dict!["Genre"] as? String)!
-                self.actors = (dict!["Actors"] as? String)!
-                self.plot = (dict!["Plot"] as? String)!
-                
-            } catch {
-                print("unable to convert to dictionary")
-                
-            }
-        }
+    init(json: AnyObject) {
+        self.title = json["Title"] as! String
+        self.year = Int(json["Year"] as! String)!
+        self.rated = json["Rated"] as! String
+        self.released = json["Released"] as! String
+        self.runtime = json["Runtime"] as! String
+        self.genre = json["Genre"] as! String
+        self.actors = json["Actors"] as! String
+        self.plot = json["Plot"] as! String
     }
     
     func toJsonString() -> String {

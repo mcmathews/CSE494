@@ -9,9 +9,24 @@
 import Foundation
 
 class MovieLibrary {
-    var library: [MovieDescription]
+    var movieDescriptions: [MovieDescription]
     
-    init() {
-        library = [MovieDescription]()
+    init(json: String) {
+        movieDescriptions = [MovieDescription]()
+        
+        if let data: NSData = json.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                let dict = try NSJSONSerialization.JSONObjectWithData(data, options:.MutableContainers) as?[String:AnyObject]
+                
+                let movies = (dict!["library"] as? [AnyObject])!
+                for movie in movies {
+                    self.movieDescriptions.append(MovieDescription(json: movie))
+                }
+                
+            } catch {
+                print("unable to convert to dictionary")
+                
+            }
+        }
     }
 }
