@@ -29,6 +29,17 @@ class MovieDescription {
     var actors: String
     var plot: String
     
+    init() {
+        title = ""
+        year = -1
+        rated = ""
+        released = ""
+        runtime = ""
+        genre = ""
+        actors = ""
+        plot = ""
+    }
+    
     init(json: AnyObject) {
         self.title = json["Title"] as! String
         self.year = Int(json["Year"] as! String)!
