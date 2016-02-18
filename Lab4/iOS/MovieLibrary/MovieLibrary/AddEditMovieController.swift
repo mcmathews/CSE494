@@ -52,6 +52,8 @@ class AddEditMovieController: UIViewController, UIPickerViewDelegate {
             plotT.text = movie.plot
         }
         
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "closeKeyboard"))
+        
         plotT.layer.cornerRadius = 5
         plotT.layer.borderColor = UIColor.lightGrayColor().CGColor
         plotT.layer.borderWidth = 1
@@ -82,6 +84,10 @@ class AddEditMovieController: UIViewController, UIPickerViewDelegate {
     
     func pickerView (pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return genres[row]
+    }
+    
+    func closeKeyboard() {
+        self.view.endEditing(true)
     }
 
     // MARK: - Navigation

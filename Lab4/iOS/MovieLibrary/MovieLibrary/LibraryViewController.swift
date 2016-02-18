@@ -21,7 +21,7 @@ import UIKit
 
 class LibraryViewController: UITableViewController {
     
-    var library:MovieLibrary = MovieLibrary(json: MovieLibrary.libraryJson)
+    var library:MovieLibrary = MovieLibrary()
 
     @IBOutlet var libraryTableView: UITableView!
     
