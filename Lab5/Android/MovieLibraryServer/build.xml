@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<project name="JsonRPC in CPP using libjson-rpc-cpp" default="targets">
+   <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+   <property name="src.dir" value="src"/>
+   <property name="dist.dir" value="bin"/>
+   <property name="classes.dir" value="classes"/>
+   <property name="obj.dir" value="obj"/>
+   <property name="host.name" value="127.0.0.1"/>
+   <property name="port.num" value="8080"/>
+   <property name="json.file.name" value="MediaLibraryMethods.json"/>
+   <property environment="env"/>
+   <property name="ostype" value="${env.OSTYPE}"/>
+
+   <target name="targets">
+      <echo message="Targets are clean, prepare, build.java.server, build.java.client, targets"/>
+      <echo message="base directory is: ${basedir}"/>
+      <echo message="base directory is: ${basedir}"/>
+      <echo message="invoke java server with: java -cp classes:lib/json.jar ser423.student.server.StudentJsonRPCServer ${port.num}"/>
+      <echo message="invoke java client with: java -cp classes:lib/json.jar ser423.student.client.StudentCmdLine ${host.name} ${port.num}"/>
+   </target>
+
+   <path id="compile.classpath">
+      <pathelement location="${build}"/>
+      <fileset dir="${basedir}/lib">
+         <include name="json.jar"/>
+      </fileset>
+   </path>
+
+   <target name="clean">
+      <delete dir="${classes.dir}" failonerror="false"/>
+   </target>
+
+   <target name="prepare">
+      <mkdir dir="${classes.dir}"/>
+   </target>
+
+   <target name="build.all"
+           depends="clean,prepare,build.java.server,build.java.client"
+           description="Clean then build java server and client"/>
+
+   <target name="build.java.server" depends="prepare"
+          description="Compile Java server sources">
+     <!-- Compile Java classes as necessary -->
+     <echo message="java -cp classes:lib/json.jar ser423.student.server.StudentServer 8080"/>
+     <javac srcdir="${src.dir}/server"
+            destdir="${classes.dir}"
+            includeantruntime="false">
+        <classpath refid="compile.classpath"/>
+    </javac>
+  </target>
+
+  <target name="build.java.client" depends="prepare"
+          description="Compile Java client sources">
+    <echo message="java -cp classes:lib/json.jar ser423.student.client.StudentCmdLine localhost 8080"/>
+     <!-- Compile Java classes as necessary -->
+     <javac srcdir="${src.dir}/client"
+            destdir="${classes.dir}"
+            includeantruntime="false">
+        <classpath refid="compile.classpath"/>
+    </javac>
+  </target>
+
+</project>
