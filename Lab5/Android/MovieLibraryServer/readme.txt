@@ -41,7 +41,7 @@ ant build.java.server
 
 run the server from the command line with the statement:
 
-java -cp classes:lib/json.jar ser423.student.server.StudentServer 8080
+java -cp classes:lib/json.jar edu.asu.mcmathe1.bscs.movielibraryserver.StudentServer 8080
 
 this command needs to be modified slightly to be execute on Windows.
 
