@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="JsonRPC in CPP using libjson-rpc-cpp" default="targets">
+<project name="Movie Library Server" default="targets">
     <!--<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>-->
     <property name="src.dir" value="src"/>
     <property name="dist.dir" value="bin"/>
@@ -10,11 +10,9 @@
     <property environment="env"/>
 
     <target name="targets">
-        <echo message="Targets are clean, prepare, build.java.server, build.java.client, targets"/>
+        <echo message="Targets are clean, prepare, build.java.server targets"/>
         <echo message="base directory is: ${basedir}"/>
-        <echo message="base directory is: ${basedir}"/>
-        <echo message="invoke java server with: java -cp classes:lib/json.jar ser423.student.server.StudentJsonRPCServer ${port.num}"/>
-        <echo message="invoke java client with: java -cp classes:lib/json.jar ser423.student.client.StudentCmdLine ${host.name} ${port.num}"/>
+        <echo message="invoke java server with: java -cp classes;lib/json.jar edu.asu.mcmathe1.bscs.movielibraryserver.MovieLibraryServer ${port.num}"/>
     </target>
 
     <path id="compile.classpath">
@@ -34,11 +32,11 @@
 
     <target name="build.all"
             depends="clean,prepare,build.java.server"
-            description="Clean then build java server and client"/>
+            description="Clean then build java server"/>
 
     <target name="build.java.server" depends="prepare"
             description="Compile Java server sources">
-        <echo message="java -cp classes:lib/json.jar edu.asu.mcmathe1.bscs.movielibraryserver.MovieLibraryServer 8080"/>
+        <echo message="java -cp classes;lib/json.jar edu.asu.mcmathe1.bscs.movielibraryserver.MovieLibraryServer ${port.num}"/>
         <javac srcdir="${src.dir}"
                destdir="${classes.dir}"
                includeantruntime="false">

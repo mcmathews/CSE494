@@ -23,11 +23,11 @@ public class JsonRpcHandler {
 			result.put("id", id);
 			result.put("jsonrpc", "2.0");
 
-			if (method.equals("resetFromJsonFile")) {
+			if (method.equals("reset")) {
 				library.reset();
 				result.put("result", true);
 				
-			} else if (method.equals("saveToJsonFile")) {
+			} else if (method.equals("save")) {
 				boolean saved = library.save();
 				result.put("result", saved);
 				
@@ -47,7 +47,7 @@ public class JsonRpcHandler {
 				MovieDescription movie = library.get(title);
 				result.put("result", movie.toJsonString());
 				
-			} else if (method.equals("getNames")) {
+			} else if (method.equals("getTitles")) {
 				JSONArray resArr = new JSONArray();
 				for (String title : library.getTitles()) {
 					resArr.put(title);
