@@ -41,11 +41,18 @@ public class JsonRpcHandler {
 				MovieDescription movie = new MovieDescription(movieJson);
 				boolean added = library.add(movie);
 				result.put("result", added);
+
+			} else if (method.equals("edit")) {
+				String title = params.getString(0);
+				JSONObject movieJson = params.getJSONObject(1);
+				MovieDescription movie = new MovieDescription(movieJson);
+				boolean edited = library.edit(title, movie);
+				result.put("result", edited);
 				
 			} else if (method.equals("get")) {
 				String title = params.getString(0);
 				MovieDescription movie = library.get(title);
-				result.put("result", movie.toJsonString());
+				result.put("result", movie.toJsonObject());
 				
 			} else if (method.equals("getTitles")) {
 				JSONArray resArr = new JSONArray();

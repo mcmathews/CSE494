@@ -26,7 +26,7 @@
         <entry file="file://$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/JsonRpcHandler.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="38" column="46" selection-start-line="38" selection-start-column="46" selection-end-line="38" selection-end-column="46" />
+              <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#215#216#0" expanded="true" />
@@ -40,18 +40,11 @@
         <entry file="file://$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/MovieDescription.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="movies.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/movies.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="1" />
-              <folding />
+              <caret line="43" column="47" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
+              <folding>
+                <element signature="e#1620#1621#0" expanded="true" />
+                <element signature="e#1659#1660#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -60,30 +53,31 @@
         <entry file="file://$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/MovieLibrary.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JsonFileMovieLibraryImpl.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="JsonFileMovieLibraryImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/JsonFileMovieLibraryImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.8811189">
+              <caret line="54" column="20" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
               <folding>
-                <element signature="e#1751#1752#0" expanded="true" />
-                <element signature="e#1798#1799#0" expanded="true" />
-                <element signature="e#1879#1880#0" expanded="true" />
+                <element signature="e#1912#1913#0" expanded="true" />
+                <element signature="e#1955#1956#0" expanded="true" />
+                <element signature="e#2002#2003#0" expanded="true" />
+                <element signature="e#2083#2084#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="build.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7648766">
+            <state vertical-scroll-proportion="-20.26923">
               <caret line="38" column="124" selection-start-line="38" selection-start-column="124" selection-end-line="38" selection-end-column="124" />
               <folding />
             </state>
@@ -110,17 +104,18 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/MovieDescription.java" />
         <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/Student.java" />
         <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/StudentCollection.java" />
         <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/StudentCollectionImpl.java" />
         <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/CollectionSkeleton.java" />
-        <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/MovieLibrary.java" />
-        <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/JsonFileMovieLibraryImpl.java" />
         <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/StudentServer.java" />
         <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/MovieLibraryServer.java" />
-        <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/JsonRpcHandler.java" />
         <option value="$PROJECT_DIR$/build.xml" />
+        <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/JsonRpcHandler.java" />
+        <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/MovieDescription.java" />
+        <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/MovieLibrary.java" />
+        <option value="$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/JsonFileMovieLibraryImpl.java" />
+        <option value="$PROJECT_DIR$/movies.json" />
       </list>
     </option>
   </component>
@@ -526,6 +521,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-20.26923">
+          <caret line="38" column="124" selection-start-line="38" selection-start-column="124" selection-end-line="38" selection-end-column="124" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/MovieLibraryServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -534,38 +537,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/JsonFileMovieLibraryImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding>
-            <element signature="e#1751#1752#0" expanded="true" />
-            <element signature="e#1798#1799#0" expanded="true" />
-            <element signature="e#1879#1880#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/MovieLibrary.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/movies.json">
+    <entry file="file://$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/MovieDescription.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="1" />
-          <folding />
+          <caret line="43" column="47" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
+          <folding>
+            <element signature="e#1620#1621#0" expanded="true" />
+            <element signature="e#1659#1660#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/JsonRpcHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="46" selection-start-line="38" selection-start-column="46" selection-end-line="38" selection-end-column="46" />
+          <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#215#216#0" expanded="true" />
@@ -574,19 +568,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/MovieDescription.java">
+    <entry file="file://$PROJECT_DIR$/movies.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.29608127">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.xml">
+    <entry file="file://$PROJECT_DIR$/src/edu/asu/mcmathe1/bscs/movielibraryserver/JsonFileMovieLibraryImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7648766">
-          <caret line="38" column="124" selection-start-line="38" selection-start-column="124" selection-end-line="38" selection-end-column="124" />
-          <folding />
+        <state vertical-scroll-proportion="0.8811189">
+          <caret line="54" column="20" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
+          <folding>
+            <element signature="e#1912#1913#0" expanded="true" />
+            <element signature="e#1955#1956#0" expanded="true" />
+            <element signature="e#2002#2003#0" expanded="true" />
+            <element signature="e#2083#2084#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

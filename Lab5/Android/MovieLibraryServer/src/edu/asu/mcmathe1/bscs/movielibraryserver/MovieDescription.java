@@ -36,7 +36,11 @@ public class MovieDescription {
 	public MovieDescription(JSONObject jo) {
 		try {
 			this.title = jo.getString("Title");
-			this.year = Integer.parseInt(jo.getString("Year"));
+			try {
+				this.year = Integer.parseInt(jo.getString("Year"));
+			} catch (JSONException e) {
+				this.year = jo.getInt("Year");
+			}
 			this.rated = jo.getString("Rated");
 			this.released = jo.getString("Released");
 			this.runtime = jo.getString("Runtime");
@@ -50,17 +54,20 @@ public class MovieDescription {
 	}
 
 	public String toJsonString() {
+		return toJsonObject().toString();
+	}
+
+	public JSONObject toJsonObject() {
 		try {
 			return new JSONObject()
-					       .accumulate("Title", title)
-					       .accumulate("Year", year)
-					       .accumulate("Rated", rated)
-					       .accumulate("Released", released)
-					       .accumulate("Runtime", runtime)
-					       .accumulate("Genre", genre)
-					       .accumulate("Actors", actors)
-					       .accumulate("Plot", plot)
-					       .toString();
+					.accumulate("Title", title)
+					.accumulate("Year", year)
+					.accumulate("Rated", rated)
+					.accumulate("Released", released)
+					.accumulate("Runtime", runtime)
+					.accumulate("Genre", genre)
+					.accumulate("Actors", actors)
+					.accumulate("Plot", plot);
 		} catch (JSONException e) {
 			throw new RuntimeException(e);
 		}

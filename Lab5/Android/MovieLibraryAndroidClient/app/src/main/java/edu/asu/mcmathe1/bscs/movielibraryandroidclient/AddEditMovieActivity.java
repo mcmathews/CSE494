@@ -1,16 +1,17 @@
 package edu.asu.mcmathe1.bscs.movielibraryandroidclient;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.IOException;
 
 /**
  * Copyright 2016 Michael Mathews
@@ -42,6 +43,7 @@ public class AddEditMovieActivity extends AppCompatActivity {
 	private EditText plotET;
 
 	private int movieIndex;
+	private String movieTitle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,21 +51,12 @@ public class AddEditMovieActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_add_edit_movie);
 
 		Bundle extras = getIntent().getExtras();
-		String movieJson = null;
+		movieTitle = null;
 		if (extras != null) {
 			movieIndex = extras.getInt(LibraryActivity.MOVIE_INDEX_KEY, -1);
-			movieJson = extras.getString(LibraryActivity.MOVIE_DESCRIPTION_KEY);
+			movieTitle = extras.getString(LibraryActivity.MOVIE_TITLE_KEY);
 		} else {
 			movieIndex = -1;
-		}
-
-		MovieDescription movie = null;
-		if (movieJson != null) {
-			try {
-				movie = new MovieDescription(new JSONObject(movieJson));
-			} catch (JSONException e) {
-				throw new RuntimeException(e);
-			}
 		}
 
 		titleET = (EditText) findViewById(R.id.titleET);
@@ -79,17 +72,8 @@ public class AddEditMovieActivity extends AppCompatActivity {
 		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		genreSpinner.setAdapter(spinnerAdapter);
 
-		if (movie != null) {
-			titleET.setText(movie.getTitle());
-			if (movie.getYear() >= 0) {
-				yearET.setText(String.format("%d", movie.getYear()));
-			}
-			ratedET.setText(movie.getRated());
-			releasedET.setText(movie.getReleased());
-			runtimeET.setText(movie.getRuntime());
-			genreSpinner.setSelection(spinnerAdapter.getPosition(movie.getGenre()));
-			actorsET.setText(movie.getActors());
-			plotET.setText(movie.getPlot());
+		if (movieTitle != null) {
+			new GetMovieAsyncTask().execute(movieTitle);
 		}
 	}
 
@@ -106,8 +90,14 @@ public class AddEditMovieActivity extends AppCompatActivity {
 		movie.setActors(actorsET.getText().toString());
 		movie.setPlot(plotET.getText().toString());
 
+		if (movieIndex > -1) {
+			new EditMovieAsyncTask().execute(new Pair<>(movieTitle, movie));
+		} else {
+			new AddMovieAsyncTask().execute(movie);
+		}
+
 		Intent resultIntent = new Intent();
-		resultIntent.putExtra(LibraryActivity.MOVIE_DESCRIPTION_KEY, movie.toJsonString());
+		resultIntent.putExtra(LibraryActivity.MOVIE_TITLE_KEY, movie.getTitle());
 		resultIntent.putExtra(LibraryActivity.MOVIE_INDEX_KEY, movieIndex);
 
 		setResult(RESULT_OK, resultIntent);
@@ -117,10 +107,80 @@ public class AddEditMovieActivity extends AppCompatActivity {
 	public void handleDelete(View view) {
 		Log.w(getClass().getSimpleName(), "Delete button clicked");
 
+		new DeleteMovieAsyncTask().execute(movieTitle);
+
 		Intent resultIntent = new Intent();
 		resultIntent.putExtra(LibraryActivity.MOVIE_INDEX_KEY, movieIndex);
 
 		setResult(RESULT_OK, resultIntent);
 		finish();
+	}
+
+	private class GetMovieAsyncTask extends AsyncTask<String, Void, MovieDescription> {
+
+		@Override
+		protected MovieDescription doInBackground(String... params) {
+			try {
+				return MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).get(params[0]);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		@Override
+		protected void onPostExecute(MovieDescription movie) {
+			super.onPostExecute(movie);
+
+			Log.w(getClass().getSimpleName(), "postExecute called: " + movie);
+
+			if (movie != null) {
+				titleET.setText(movie.getTitle());
+				if (movie.getYear() >= 0) {
+					yearET.setText(String.format("%d", movie.getYear()));
+				}
+				ratedET.setText(movie.getRated());
+				releasedET.setText(movie.getReleased());
+				runtimeET.setText(movie.getRuntime());
+				genreSpinner.setSelection(((ArrayAdapter<String>) genreSpinner.getAdapter()).getPosition(movie.getGenre()));
+				actorsET.setText(movie.getActors());
+				plotET.setText(movie.getPlot());
+			}
+		}
+	}
+
+	private class AddMovieAsyncTask extends AsyncTask<MovieDescription, Void, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(MovieDescription... params) {
+			try {
+				return MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).add(params[0]);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	private class EditMovieAsyncTask extends AsyncTask<Pair<String, MovieDescription>, Void, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(Pair<String, MovieDescription>... params) {
+			try {
+				return MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).edit(params[0].first, params[0].second);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	private class DeleteMovieAsyncTask extends AsyncTask<String, Void, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(String... params) {
+			try {
+				return MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).remove(params[0]);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 }

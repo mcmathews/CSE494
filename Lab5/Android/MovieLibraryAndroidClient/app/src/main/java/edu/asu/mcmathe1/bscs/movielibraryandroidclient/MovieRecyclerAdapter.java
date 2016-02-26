@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Copyright 2016 Michael Mathews
  *
@@ -26,7 +28,7 @@ import android.widget.TextView;
  */
 public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolder> {
 
-    private MovieLibrary library;
+    private List<String> movieTitles;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public CardView movieListLayout;
@@ -37,8 +39,8 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
         }
     }
 
-    public MovieRecyclerAdapter(MovieLibrary library) {
-        this.library = library;
+    public MovieRecyclerAdapter(List<String> movieTitles) {
+        this.movieTitles = movieTitles;
     }
 
     @Override
@@ -50,11 +52,11 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 	    TextView movieTitleView = (TextView) holder.movieListLayout.findViewById(R.id.movie_list_title);
-	    movieTitleView.setText(library.getMovieDescriptions().get(position).getTitle());
+	    movieTitleView.setText(movieTitles.get(position));
     }
 
     @Override
     public int getItemCount(){
-        return library.getMovieDescriptions().size();
+        return movieTitles.size();
     }
 }

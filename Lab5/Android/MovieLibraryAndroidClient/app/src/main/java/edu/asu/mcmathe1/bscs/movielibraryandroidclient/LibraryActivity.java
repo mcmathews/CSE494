@@ -1,6 +1,7 @@
 package edu.asu.mcmathe1.bscs.movielibraryandroidclient;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Copyright 2016 Michael Mathews
@@ -39,38 +43,21 @@ import java.io.InputStreamReader;
 public class LibraryActivity extends AppCompatActivity {
 
 	public static final int ADD_EDIT_MOVIE_REQUEST_CODE = 4305;
-	public static final String MOVIE_DESCRIPTION_KEY = "movie-description";
+	public static final String MOVIE_TITLE_KEY = "movie-title";
 	public static final String MOVIE_INDEX_KEY = "movie-index";
 
 	private RecyclerView libraryView;
-	private MovieLibrary library;
+	private List<String> movieTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.library)))) {
-	        StringBuilder sb = new StringBuilder();
-	        String line;
-	        while ((line = reader.readLine()) != null) {
-		        sb.append(line.trim());
-	        }
+	    new GetTitlesAsyncTask().execute();
 
-	        JSONObject jo = new JSONObject(sb.toString());
-	        JSONArray jsonLibrary = jo.getJSONArray("library");
-			library = new MovieLibrary();
-	        for (int i = 0; i < jsonLibrary.length(); i++) {
-		        library.getMovieDescriptions().add(new MovieDescription(jsonLibrary.getJSONObject(i)));
-	        }
-
-	        libraryView = (RecyclerView) findViewById(R.id.movie_recycler);
-	        libraryView.setAdapter(new MovieRecyclerAdapter(library));
-	        libraryView.setLayoutManager(new LinearLayoutManager(this));
-
-        } catch (Exception e) {
-	        throw new RuntimeException("Uh oh", e);
-        }
+	    libraryView = (RecyclerView) findViewById(R.id.movie_recycler);
+	    libraryView.setLayoutManager(new LinearLayoutManager(this));
     }
 
 	public void handleMovieClick(View view) {
@@ -79,17 +66,29 @@ public class LibraryActivity extends AppCompatActivity {
 		String titleClicked = ((TextView) view.findViewById(R.id.movie_list_title)).getText().toString();
 
 		int i;
-		for (i = 0; i < library.getMovieDescriptions().size(); i++) {
-			if (library.getMovieDescriptions().get(i).getTitle().equalsIgnoreCase(titleClicked)) {
+		for (i = 0; i < movieTitles.size(); i++) {
+			if (movieTitles.get(i).equalsIgnoreCase(titleClicked)) {
 				break;
 			}
 		}
 
 		Intent addEditIntent = new Intent(this, AddEditMovieActivity.class);
-		addEditIntent.putExtra(MOVIE_DESCRIPTION_KEY, library.getMovieDescriptions().get(i).toJsonString());
+		addEditIntent.putExtra(MOVIE_TITLE_KEY, movieTitles.get(i));
 		addEditIntent.putExtra(MOVIE_INDEX_KEY, i);
 
 		startActivityForResult(addEditIntent, ADD_EDIT_MOVIE_REQUEST_CODE);
+	}
+
+	public void handleReset(View view) {
+		Log.w(getClass().getSimpleName(), "Reset button clicked");
+
+		new ResetLibraryAsyncTask().execute();
+	}
+
+	public void handleLibrarySave(View view) {
+		Log.w(getClass().getSimpleName(), "Save button clicked");
+
+		new SaveLibraryAsyncTask().execute();
 	}
 
 	@Override
@@ -99,28 +98,21 @@ public class LibraryActivity extends AppCompatActivity {
 				Bundle extras = intent.getExtras();
 
 				int movieIndex = extras.getInt(MOVIE_INDEX_KEY, -1);
-				String movieJson = extras.getString(MOVIE_DESCRIPTION_KEY);
+				String movieTitle = extras.getString(MOVIE_TITLE_KEY);
 
-				Log.w(getClass().getSimpleName(), "onActivityResult called with result: " + movieJson);
+				Log.w(getClass().getSimpleName(), "onActivityResult called with result: " + movieTitle);
 
-				if (movieJson != null) {
-					MovieDescription movie;
-					try {
-						movie = new MovieDescription(new JSONObject(movieJson));
-					} catch (JSONException e) {
-						throw new RuntimeException(e);
-					}
-
+				if (movieTitle != null) {
 					if (movieIndex >= 0) {
-						library.getMovieDescriptions().set(movieIndex, movie);
+						movieTitles.set(movieIndex, movieTitle);
 						libraryView.getAdapter().notifyItemChanged(movieIndex);
 					} else {
-						library.getMovieDescriptions().add(movie);
+						movieTitles.add(movieTitle);
 						libraryView.getAdapter().notifyItemInserted(libraryView.getAdapter().getItemCount());
 					}
 				} else {
 					if (movieIndex >= 0) {
-						library.getMovieDescriptions().remove(movieIndex);
+						movieTitles.remove(movieIndex);
 						libraryView.getAdapter().notifyItemRemoved(movieIndex);
 					}
 				}
@@ -146,5 +138,63 @@ public class LibraryActivity extends AppCompatActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private class GetTitlesAsyncTask extends AsyncTask<Void, Void, List<String>> {
+
+		@Override
+		protected List<String> doInBackground(Void... params) {
+			try {
+				return MovieLibraryDaoFactory.getInstance(LibraryActivity.this).getTitles();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		@Override
+		protected void onPostExecute(List<String> titles) {
+			super.onPostExecute(titles);
+
+			Log.w(getClass().getSimpleName(), "postExecute called: " + titles);
+
+			movieTitles = titles;
+			libraryView.setAdapter(new MovieRecyclerAdapter(movieTitles));
+		}
+	}
+
+	private class ResetLibraryAsyncTask extends AsyncTask<Void, Void, List<String>> {
+
+		@Override
+		protected List<String> doInBackground(Void... params) {
+			try {
+				MovieLibraryDao dao = MovieLibraryDaoFactory.getInstance(LibraryActivity.this);
+				dao.reset();
+				return dao.getTitles();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		@Override
+		protected void onPostExecute(List<String> titles) {
+			super.onPostExecute(titles);
+
+			Log.w(getClass().getSimpleName(), "ResetLibraryAsyncTask finished: " + titles);
+
+			movieTitles = titles;
+			libraryView.setAdapter(new MovieRecyclerAdapter(movieTitles));
+		}
+	}
+
+	private class SaveLibraryAsyncTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			try {
+				return MovieLibraryDaoFactory.getInstance(LibraryActivity.this).save();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 }
