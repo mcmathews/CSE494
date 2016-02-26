@@ -19,7 +19,7 @@ import org.json.JSONObject;
  * limitations under the License.
  *
  * @author Michael Mathews    mailto:Michael.C.Mathews@asu.edu
- * @version 2/23/2016
+ * @version 2/26/2016
  */
 public class MovieDescription {
 	private String title;

@@ -24,7 +24,7 @@ import java.util.List;
  * limitations under the License.
  *
  * @author Michael Mathews    mailto:Michael.C.Mathews@asu.edu
- * @version 2/23/2016
+ * @version 2/26/2016
  */
 public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolder> {
 

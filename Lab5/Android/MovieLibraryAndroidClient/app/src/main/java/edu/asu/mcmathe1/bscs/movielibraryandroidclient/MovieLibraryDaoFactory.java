@@ -1,7 +1,6 @@
 package edu.asu.mcmathe1.bscs.movielibraryandroidclient;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 /**
  * Copyright 2015 Michael Mathews

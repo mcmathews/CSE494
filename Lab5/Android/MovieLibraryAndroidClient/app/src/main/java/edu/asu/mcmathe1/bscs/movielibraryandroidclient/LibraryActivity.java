@@ -12,14 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +31,7 @@ import java.util.List;
  * limitations under the License.
  *
  * @author Michael Mathews    mailto:Michael.C.Mathews@asu.edu
- * @version 2/23/2016
+ * @version 2/26/2016
  */
 public class LibraryActivity extends AppCompatActivity {
 
