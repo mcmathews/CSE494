@@ -411,6 +411,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.asu.bscs.mcmathe1.MovieLibraryIOSClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -422,6 +423,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.asu.bscs.mcmathe1.MovieLibraryIOSClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -492,6 +494,7 @@
 				59BD61C91C985CBD00A17E13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		59BD61CA1C985CBD00A17E13 /* Build configuration list for PBXNativeTarget "MovieLibraryIOSClientTests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +503,7 @@
 				59BD61CC1C985CBD00A17E13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		59BD61CD1C985CBD00A17E13 /* Build configuration list for PBXNativeTarget "MovieLibraryIOSClientUITests" */ = {
 			isa = XCConfigurationList;
@@ -508,6 +512,7 @@
 				59BD61CF1C985CBD00A17E13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

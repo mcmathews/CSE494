@@ -28,7 +28,10 @@ class LibraryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TODO: load titles from datasource
+        MovieLibraryClient().getTitles() {
+            self.titles = $0
+            self.libraryTableView.reloadData()
+        }
 
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
     }
