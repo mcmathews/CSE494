@@ -1,0 +1,25 @@
+<resources>
+	<string name="app_name">Movie Library</string>
+	<string name="host">192.168.0.4</string>
+	<string name="port">8080</string>
+	<string name="menu_action_create_title">Create</string>
+	<string-array name="genres">
+		<item>Action</item>
+		<item>Adventure</item>
+		<item>Children/Family</item>
+		<item>Comedy</item>
+		<item>Crime</item>
+		<item>Drama</item>
+		<item>Epic</item>
+		<item>Fantasy</item>
+		<item>Historical</item>
+		<item>Horror</item>
+		<item>Musical</item>
+		<item>Mystery</item>
+		<item>Romance</item>
+		<item>Science Fiction</item>
+		<item>Spy</item>
+		<item>Thriller</item>
+		<item>War</item>
+		<item>Western</item>
+	</string-array></resources>
