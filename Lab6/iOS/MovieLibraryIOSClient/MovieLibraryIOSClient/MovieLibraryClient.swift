@@ -10,6 +10,8 @@ import Foundation
 
 class MovieLibraryClient {
     
+    private static var instance: MovieLibraryClient = MovieLibraryClient()
+    
     var url: String
     var id: Int = 1
     
@@ -17,9 +19,13 @@ class MovieLibraryClient {
         url = NSBundle.mainBundle().infoDictionary!["serverUrl"] as! String
     }
     
-    private func callJsonRpcMethod(method: String, params: [String], callback: ([String: AnyObject]) -> Void) {
+    static func getInstance() -> MovieLibraryClient {
+        return instance
+    }
+    
+    private func callJsonRpcMethod(method: String, params: [AnyObject], callback: ([String: AnyObject]) -> Void) {
         let request = NSMutableURLRequest(URL: NSURL(string: self.url)!)
-        let payloadDict = ["jsonrpc": "2.0", "id": self.id++, "method": method, params: params]
+        let payloadDict = ["jsonrpc": "2.0", "id": self.id++, "method": method, "params": params]
         let payload: NSData
         do {
             payload = try NSJSONSerialization.dataWithJSONObject(payloadDict, options: NSJSONWritingOptions(rawValue: 0))
@@ -62,11 +68,11 @@ class MovieLibraryClient {
     }
     
     func add(movie: MovieDescription, callback: (Bool) -> Void) {
-        callJsonRpcMethod("add", params: [movie.toJsonString()]) { response in callback(response["result"] as! Bool) }
+        callJsonRpcMethod("add", params: [movie.toDict()]) { response in callback(response["result"] as! Bool) }
     }
     
     func edit(title: String, movie: MovieDescription, callback: (Bool) -> Void) {
-        callJsonRpcMethod("edit", params: [title, movie.toJsonString()]) { response in callback(response["result"] as! Bool) }
+        callJsonRpcMethod("edit", params: [title, movie.toDict()]) { response in callback(response["result"] as! Bool) }
     }
     
     func remove(title: String, callback: (Bool) -> Void) {

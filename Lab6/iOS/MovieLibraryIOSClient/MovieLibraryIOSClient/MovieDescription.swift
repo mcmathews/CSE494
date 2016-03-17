@@ -42,7 +42,7 @@ class MovieDescription {
     
     init(json: AnyObject) {
         self.title = json["Title"] as! String
-        self.year = Int(json["Year"] as! String)!
+        self.year = json["Year"] as! Int
         self.rated = json["Rated"] as! String
         self.released = json["Released"] as! String
         self.runtime = json["Runtime"] as! String
@@ -51,12 +51,15 @@ class MovieDescription {
         self.plot = json["Plot"] as! String
     }
     
+    func toDict() -> [String: AnyObject] {
+        return ["Title": title, "Year": year, "Rated": rated, "Released": released, "Runtime": runtime, "Genre": genre, "Actors": actors, "Plot": plot]
+    }
+    
     func toJsonString() -> String {
         var jsonStr = "";
-        let dict = ["Title": title, "Year": year, "Rated": rated, "Released": released, "Runtime": runtime, "Genre": genre, "Actors": actors, "Plot": plot]
+        let dict = self.toDict()
         do {
             let jsonData = try NSJSONSerialization.dataWithJSONObject(dict, options: NSJSONWritingOptions.PrettyPrinted)
-            // here "jsonData" is the dictionary encoded in JSON data
             jsonStr = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
         } catch let error as NSError {
             print(error)

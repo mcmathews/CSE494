@@ -28,10 +28,7 @@ class LibraryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        MovieLibraryClient().getTitles() {
-            self.titles = $0
-            self.libraryTableView.reloadData()
-        }
+        loadTitles()
 
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
     }
@@ -72,25 +69,19 @@ class LibraryViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            // TODO: remove movie from datasource
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            MovieLibraryClient.getInstance().remove(titles[indexPath.row]) {
+                _ in
+                self.titles.removeAtIndex(indexPath.row)
+                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
     
-    @IBAction func saveMovie(segue: UIStoryboardSegue) {
-        if let addEditController = segue.sourceViewController as? AddEditMovieController {
-            if let i = addEditController.index {
-                let indexPath = NSIndexPath(forRow: i, inSection: 0)
-                self.libraryTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            } else {
-                let indexPath = NSIndexPath(forRow: titles.count - 1, inSection: 0)
-                self.libraryTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            }
-        }
-    }
-
+    // used for exit segue
+    @IBAction func saveMovie(segue: UIStoryboardSegue) {}
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
@@ -105,6 +96,21 @@ class LibraryViewController: UITableViewController {
         return true
     }
     */
+    
+    @IBAction func handleSaveLibrary() {
+        MovieLibraryClient.getInstance().save({ _ in })
+    }
+    
+    @IBAction func handleResetLibrary() {
+        MovieLibraryClient.getInstance().reset({ _ in self.loadTitles() })
+    }
+
+    func loadTitles() {
+        MovieLibraryClient.getInstance().getTitles() {
+            self.titles = $0
+            self.libraryTableView.reloadData()
+        }
+    }
 
     // MARK: - Navigation
 
@@ -113,10 +119,11 @@ class LibraryViewController: UITableViewController {
             let movieViewController = segue.destinationViewController as! MovieViewController
             
             let cell = sender! as! UITableViewCell
-            movieViewController.movieTitle = cell.textLabel!.text!
+            movieViewController.titles = titles
             movieViewController.index = libraryTableView.indexPathForCell(cell)!.row
             
         } else if segue.identifier == "AddMovie" {
+            (segue.destinationViewController as! AddEditMovieController).titles = titles;
         }
     }
 

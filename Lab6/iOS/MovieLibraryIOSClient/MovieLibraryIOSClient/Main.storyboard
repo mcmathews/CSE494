@@ -210,6 +210,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <stackView key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="0nn-nw-Trq">
+                            <rect key="frame" x="0.0" y="136" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EcO-R4-LGb">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
+                                    <state key="normal" title="Reset"/>
+                                    <connections>
+                                        <action selector="handleResetLibrary" destination="wd8-Qx-Isv" eventType="touchUpInside" id="SUk-xT-g98"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72V-by-rx3">
+                                    <rect key="frame" x="300" y="0.0" width="300" height="44"/>
+                                    <state key="normal" title="Save"/>
+                                    <connections>
+                                        <action selector="handleSaveLibrary" destination="wd8-Qx-Isv" eventType="touchUpInside" id="LF9-9T-8NP"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="72V-by-rx3" firstAttribute="width" secondItem="EcO-R4-LGb" secondAttribute="width" id="1yz-cc-7Ba"/>
+                            </constraints>
+                        </stackView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MovieCell" textLabel="R62-MQ-4af" style="IBUITableViewCellStyleDefault" id="m3i-ys-vXu">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
@@ -270,6 +293,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wk4-nT-knS"/>
+        <segue reference="P1p-c4-S03"/>
     </inferredMetricsTieBreakers>
 </document>

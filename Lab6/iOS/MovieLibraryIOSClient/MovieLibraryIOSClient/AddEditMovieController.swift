@@ -24,7 +24,7 @@ class AddEditMovieController: UIViewController, UIPickerViewDelegate {
     let genres = ["Action", "Adventure", "Children/Family", "Comedy", "Crime", "Drama", "Epic", "Fantasy", "Historical", "Horror", "Musical", "Mystery", "Romance", "Science Fiction", "Spy", "Thriller", "War", "Western"]
     
     var index: Int? = nil
-    var movieTitle: String? = nil
+    var titles: [String]? = nil
     var movie: MovieDescription? = nil
     
     @IBOutlet weak var titleT: UITextField!
@@ -105,10 +105,21 @@ class AddEditMovieController: UIViewController, UIPickerViewDelegate {
         movie!.actors = actorsT.text!
         movie!.plot = plotT.text! != "Plot" ? plotT.text! : ""
         
-        if let title = self.movieTitle {
-            // TODO: edit movie
+        let libraryController = segue.destinationViewController as! LibraryViewController
+        if index != nil {
+            MovieLibraryClient.getInstance().edit(titles![index!], movie: movie!) {
+                _ in
+                libraryController.titles[self.index!] = self.movie!.title
+                let indexPath = NSIndexPath(forRow: self.index!, inSection: 0)
+                libraryController.libraryTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
         } else {
-            // TODO: add movie
+            MovieLibraryClient.getInstance().add(movie!) {
+                _ in
+                libraryController.titles.append(self.movie!.title)
+                let indexPath = NSIndexPath(forRow: self.titles!.count, inSection: 0)
+                libraryController.libraryTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
         }
     }
 

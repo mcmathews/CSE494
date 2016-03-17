@@ -22,7 +22,7 @@ import UIKit
 class MovieViewController: UIViewController {
     
     var index: Int? = nil
-    var movieTitle: String? = nil
+    var titles: [String]? = nil
     var movie: MovieDescription? = nil
 
     @IBOutlet weak var titleL: UILabel!
@@ -37,16 +37,18 @@ class MovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        movie = nil // TODO: get movie from datasource
-        
-        titleL.text! += movie!.title
-        yearL.text! += movie!.year > 0 ? String(movie!.year) : ""
-        ratedL.text! += movie!.rated
-        runtimeL.text! += movie!.runtime
-        releasedL.text! += movie!.released
-        genreL.text! += movie!.genre
-        actorsL.text! += movie!.actors
-        plotL.text! += movie!.plot
+        MovieLibraryClient.getInstance().findByTitle(titles![index!]) {
+            self.movie = $0
+            
+            self.titleL.text! += self.movie!.title
+            self.yearL.text! += self.movie!.year > 0 ? String(self.movie!.year) : ""
+            self.ratedL.text! += self.movie!.rated
+            self.runtimeL.text! += self.movie!.runtime
+            self.releasedL.text! += self.movie!.released
+            self.genreL.text! += self.movie!.genre
+            self.actorsL.text! += self.movie!.actors
+            self.plotL.text! += self.movie!.plot
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,7 +61,7 @@ class MovieViewController: UIViewController {
             let addEditController = segue.destinationViewController as! AddEditMovieController
             
             addEditController.movie = self.movie
-            addEditController.movieTitle = self.movieTitle
+            addEditController.titles = self.titles
             addEditController.index = self.index
         }
     }
