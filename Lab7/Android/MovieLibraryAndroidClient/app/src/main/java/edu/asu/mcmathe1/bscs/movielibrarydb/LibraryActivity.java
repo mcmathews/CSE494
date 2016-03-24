@@ -72,18 +72,6 @@ public class LibraryActivity extends AppCompatActivity {
 		startActivityForResult(addEditIntent, ADD_EDIT_MOVIE_REQUEST_CODE);
 	}
 
-	public void handleReset(View view) {
-		Log.w(getClass().getSimpleName(), "Reset button clicked");
-
-		new ResetLibraryAsyncTask().execute();
-	}
-
-	public void handleLibrarySave(View view) {
-		Log.w(getClass().getSimpleName(), "Save button clicked");
-
-		new SaveLibraryAsyncTask().execute();
-	}
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if (resultCode == RESULT_OK) {
@@ -152,42 +140,6 @@ public class LibraryActivity extends AppCompatActivity {
 
 			movieTitles = titles;
 			libraryView.setAdapter(new MovieRecyclerAdapter(movieTitles));
-		}
-	}
-
-	private class ResetLibraryAsyncTask extends AsyncTask<Void, Void, List<String>> {
-
-		@Override
-		protected List<String> doInBackground(Void... params) {
-			try {
-				MovieLibraryDao dao = MovieLibraryDaoFactory.getInstance(LibraryActivity.this);
-				dao.reset();
-				return dao.getTitles();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		}
-
-		@Override
-		protected void onPostExecute(List<String> titles) {
-			super.onPostExecute(titles);
-
-			Log.w(getClass().getSimpleName(), "ResetLibraryAsyncTask finished: " + titles);
-
-			movieTitles = titles;
-			libraryView.setAdapter(new MovieRecyclerAdapter(movieTitles));
-		}
-	}
-
-	private class SaveLibraryAsyncTask extends AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected Boolean doInBackground(Void... params) {
-			try {
-				return MovieLibraryDaoFactory.getInstance(LibraryActivity.this).save();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
 		}
 	}
 }

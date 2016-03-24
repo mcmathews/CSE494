@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Copyright 2016 Michael Mathews
@@ -86,8 +87,8 @@ public class AddEditMovieActivity extends AppCompatActivity {
 		movie.setRated(ratedET.getText().toString());
 		movie.setReleased(releasedET.getText().toString());
 		movie.setRuntime(runtimeET.getText().toString());
-		movie.setGenre((String) genreSpinner.getSelectedItem());
-		movie.setActors(actorsET.getText().toString());
+		movie.setGenres(Arrays.asList((String) genreSpinner.getSelectedItem()));
+		movie.setActors(Arrays.asList(actorsET.getText().toString()));
 		movie.setPlot(plotET.getText().toString());
 
 		if (movieIndex > -1) {
@@ -141,46 +142,49 @@ public class AddEditMovieActivity extends AppCompatActivity {
 				ratedET.setText(movie.getRated());
 				releasedET.setText(movie.getReleased());
 				runtimeET.setText(movie.getRuntime());
-				genreSpinner.setSelection(((ArrayAdapter<String>) genreSpinner.getAdapter()).getPosition(movie.getGenre()));
-				actorsET.setText(movie.getActors());
+				genreSpinner.setSelection(((ArrayAdapter<String>) genreSpinner.getAdapter()).getPosition(movie.getGenres().get(0)));
+				actorsET.setText(movie.getActors().get(0));
 				plotET.setText(movie.getPlot());
 			}
 		}
 	}
 
-	private class AddMovieAsyncTask extends AsyncTask<MovieDescription, Void, Boolean> {
+	private class AddMovieAsyncTask extends AsyncTask<MovieDescription, Void, Void> {
 
 		@Override
-		protected Boolean doInBackground(MovieDescription... params) {
+		protected Void doInBackground(MovieDescription... params) {
 			try {
-				return MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).add(params[0]);
+				MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).add(params[0]);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
+			return null;
 		}
 	}
 
-	private class EditMovieAsyncTask extends AsyncTask<Pair<String, MovieDescription>, Void, Boolean> {
+	private class EditMovieAsyncTask extends AsyncTask<Pair<String, MovieDescription>, Void, Void> {
 
 		@Override
-		protected Boolean doInBackground(Pair<String, MovieDescription>... params) {
+		protected Void doInBackground(Pair<String, MovieDescription>... params) {
 			try {
-				return MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).edit(params[0].first, params[0].second);
+				MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).edit(params[0].first, params[0].second);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
+			return null;
 		}
 	}
 
-	private class DeleteMovieAsyncTask extends AsyncTask<String, Void, Boolean> {
+	private class DeleteMovieAsyncTask extends AsyncTask<String, Void, Void> {
 
 		@Override
-		protected Boolean doInBackground(String... params) {
+		protected Void doInBackground(String... params) {
 			try {
-				return MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).remove(params[0]);
+				MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).remove(params[0]);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
+			return null;
 		}
 	}
 }

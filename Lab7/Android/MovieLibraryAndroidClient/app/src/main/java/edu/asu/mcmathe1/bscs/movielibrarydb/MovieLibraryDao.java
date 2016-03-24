@@ -22,9 +22,9 @@ import java.util.List;
  * @version 2/26/2016
  */
 public interface MovieLibraryDao {
-	boolean add(MovieDescription movie) throws IOException;
-	boolean edit(String title, MovieDescription movie) throws IOException;
-	boolean remove(String title) throws IOException;
+	void add(MovieDescription movie) throws IOException;
+	void edit(String title, MovieDescription movie) throws IOException;
+	void remove(String title) throws IOException;
 	MovieDescription get(String title) throws IOException;
 	List<String> getTitles() throws IOException;
 }
