@@ -1,6 +1,6 @@
 package edu.asu.mcmathe1.bscs.movielibrarydb;
 
-import android.content.Context;
+import android.app.Application;
 
 /**
  * Copyright 2015 Michael Mathews
@@ -18,22 +18,13 @@ import android.content.Context;
  * limitations under the License.
  *
  * @author Michael Mathews    mailto:Michael.C.Mathews@asu.edu
- * @version 2/26/2016
+ * @version 3/26/2016
  */
-public enum MovieLibraryDaoFactory {
-	INSTANCE;
+public class MovieLibraryApplication extends Application {
+	@Override
+	public void onCreate() {
+		super.onCreate();
 
-	private static SqliteMovieHelper sqliteMovieHelper;
-
-	public static MovieLibraryDaoFactory getInstance() {
-		return INSTANCE;
-	}
-
-	public static void init(Context ctx) {
-		sqliteMovieHelper = new SqliteMovieHelper(ctx);
-	}
-
-	public MovieLibraryDao getDao() {
-		return new SqlliteMovieLibraryDaoImpl(sqliteMovieHelper);
+		MovieLibraryDaoFactory.init(this);
 	}
 }

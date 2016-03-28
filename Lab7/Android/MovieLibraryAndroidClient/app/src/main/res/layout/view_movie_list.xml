@@ -10,8 +10,7 @@
 	card_view:cardCornerRadius="4dp"
 	android:foreground="?android:attr/selectableItemBackground"
 	android:clickable="true"
-	android:elevation="2dp"
-	android:onClick="handleMovieClick">
+	android:elevation="2dp">
 	<LinearLayout android:orientation="horizontal"
 	              android:layout_width="match_parent"
 	              android:layout_height="match_parent">

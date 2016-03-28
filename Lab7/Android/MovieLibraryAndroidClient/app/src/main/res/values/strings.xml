@@ -1,6 +1,7 @@
 <resources>
 	<string name="app_name">Movie Library</string>
 	<string name="menu_action_create_title">Create</string>
+	<string name="menu_action_search_title">Search</string>
 	<string-array name="genres">
 		<item>Action</item>
 		<item>Adventure</item>
@@ -20,4 +21,5 @@
 		<item>Thriller</item>
 		<item>War</item>
 		<item>Western</item>
-	</string-array></resources>
+	</string-array>
+</resources>

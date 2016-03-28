@@ -1,4 +1,4 @@
-package edu.asu.mcmathe1.bscs.movielibrarydb;
+package edu.asu.mcmathe1.bscs.movielibrarydb.ui;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +13,10 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.List;
+
+import edu.asu.mcmathe1.bscs.movielibrarydb.MovieLibraryDaoFactory;
+import edu.asu.mcmathe1.bscs.movielibrarydb.MovieRecyclerAdapter;
+import edu.asu.mcmathe1.bscs.movielibrarydb.R;
 
 /**
  * Copyright 2016 Michael Mathews
@@ -31,11 +34,12 @@ import java.util.List;
  * limitations under the License.
  *
  * @author Michael Mathews    mailto:Michael.C.Mathews@asu.edu
- * @version 2/26/2016
+ * @version 3/28/2016
  */
 public class LibraryActivity extends AppCompatActivity {
 
 	public static final int ADD_EDIT_MOVIE_REQUEST_CODE = 4305;
+	public static final int SEARCH_OMBD_REQUEST_CODE = 8456;
 	public static final String MOVIE_TITLE_KEY = "movie-title";
 	public static final String MOVIE_INDEX_KEY = "movie-index";
 
@@ -53,25 +57,6 @@ public class LibraryActivity extends AppCompatActivity {
 	    libraryView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-	public void handleMovieClick(View view) {
-		Log.w(getClass().getSimpleName(), "Movie clicked");
-
-		String titleClicked = ((TextView) view.findViewById(R.id.movie_list_title)).getText().toString();
-
-		int i;
-		for (i = 0; i < movieTitles.size(); i++) {
-			if (movieTitles.get(i).equalsIgnoreCase(titleClicked)) {
-				break;
-			}
-		}
-
-		Intent addEditIntent = new Intent(this, AddEditMovieActivity.class);
-		addEditIntent.putExtra(MOVIE_TITLE_KEY, movieTitles.get(i));
-		addEditIntent.putExtra(MOVIE_INDEX_KEY, i);
-
-		startActivityForResult(addEditIntent, ADD_EDIT_MOVIE_REQUEST_CODE);
-	}
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if (resultCode == RESULT_OK) {
@@ -80,8 +65,6 @@ public class LibraryActivity extends AppCompatActivity {
 
 				int movieIndex = extras.getInt(MOVIE_INDEX_KEY, -1);
 				String movieTitle = extras.getString(MOVIE_TITLE_KEY);
-
-				Log.w(getClass().getSimpleName(), "onActivityResult called with result: " + movieTitle);
 
 				if (movieTitle != null) {
 					if (movieIndex >= 0) {
@@ -97,9 +80,14 @@ public class LibraryActivity extends AppCompatActivity {
 						libraryView.getAdapter().notifyItemRemoved(movieIndex);
 					}
 				}
+			} else if (requestCode == SEARCH_OMBD_REQUEST_CODE) {
+				Bundle extras = intent.getExtras();
+
+				String movieTitle = extras.getString(MOVIE_TITLE_KEY);
+				movieTitles.add(movieTitle);
+				libraryView.getAdapter().notifyItemInserted(libraryView.getAdapter().getItemCount());
 			}
 		}
-
 	}
 
 	@Override
@@ -110,10 +98,12 @@ public class LibraryActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Log.w(getClass().getSimpleName(), "called onOptionsItemSelected: " + item.getTitle());
-
 		if (item.getItemId() == R.id.action_create) {
 			startActivityForResult(new Intent(this, AddEditMovieActivity.class), ADD_EDIT_MOVIE_REQUEST_CODE);
+
+			return true;
+		} else if (item.getItemId() == R.id.action_search) {
+			startActivityForResult(new Intent(this, SearchOmdbActivity.class), SEARCH_OMBD_REQUEST_CODE);
 
 			return true;
 		}
@@ -121,12 +111,32 @@ public class LibraryActivity extends AppCompatActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	private class LibraryMovieClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View view) {
+			String titleClicked = ((TextView) view.findViewById(R.id.movie_list_title)).getText().toString();
+
+			int i;
+			for (i = 0; i < movieTitles.size(); i++) {
+				if (movieTitles.get(i).equalsIgnoreCase(titleClicked)) {
+					break;
+				}
+			}
+
+			Intent addEditIntent = new Intent(LibraryActivity.this, AddEditMovieActivity.class);
+			addEditIntent.putExtra(MOVIE_TITLE_KEY, movieTitles.get(i));
+			addEditIntent.putExtra(MOVIE_INDEX_KEY, i);
+
+			startActivityForResult(addEditIntent, ADD_EDIT_MOVIE_REQUEST_CODE);
+		}
+	}
+
 	private class GetTitlesAsyncTask extends AsyncTask<Void, Void, List<String>> {
 
 		@Override
 		protected List<String> doInBackground(Void... params) {
 			try {
-				return MovieLibraryDaoFactory.getInstance(LibraryActivity.this).getTitles();
+				return MovieLibraryDaoFactory.getInstance().getDao().getTitles();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -136,10 +146,8 @@ public class LibraryActivity extends AppCompatActivity {
 		protected void onPostExecute(List<String> titles) {
 			super.onPostExecute(titles);
 
-			Log.w(getClass().getSimpleName(), "postExecute called: " + titles);
-
 			movieTitles = titles;
-			libraryView.setAdapter(new MovieRecyclerAdapter(movieTitles));
+			libraryView.setAdapter(new MovieRecyclerAdapter(movieTitles, new LibraryMovieClickListener()));
 		}
 	}
 }

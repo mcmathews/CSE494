@@ -1,4 +1,4 @@
-package edu.asu.mcmathe1.bscs.movielibrarydb;
+package edu.asu.mcmathe1.bscs.movielibrarydb.ui;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,6 +13,10 @@ import android.widget.Spinner;
 
 import java.io.IOException;
 import java.util.Arrays;
+
+import edu.asu.mcmathe1.bscs.movielibrarydb.MovieDescription;
+import edu.asu.mcmathe1.bscs.movielibrarydb.MovieLibraryDaoFactory;
+import edu.asu.mcmathe1.bscs.movielibrarydb.R;
 
 /**
  * Copyright 2016 Michael Mathews
@@ -122,7 +126,7 @@ public class AddEditMovieActivity extends AppCompatActivity {
 		@Override
 		protected MovieDescription doInBackground(String... params) {
 			try {
-				return MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).get(params[0]);
+				return MovieLibraryDaoFactory.getInstance().getDao().get(params[0]);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -143,7 +147,18 @@ public class AddEditMovieActivity extends AppCompatActivity {
 				releasedET.setText(movie.getReleased());
 				runtimeET.setText(movie.getRuntime());
 				genreSpinner.setSelection(((ArrayAdapter<String>) genreSpinner.getAdapter()).getPosition(movie.getGenres().get(0)));
-				actorsET.setText(movie.getActors().get(0));
+
+				StringBuilder actors = new StringBuilder();
+				boolean first = true;
+				for (String actor : movie.getActors()) {
+					if (!first) {
+						actors.append(", ");
+					} else {
+						first = false;
+					}
+					actors.append(actor);
+				}
+				actorsET.setText(actors.toString());
 				plotET.setText(movie.getPlot());
 			}
 		}
@@ -154,7 +169,7 @@ public class AddEditMovieActivity extends AppCompatActivity {
 		@Override
 		protected Void doInBackground(MovieDescription... params) {
 			try {
-				MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).add(params[0]);
+				MovieLibraryDaoFactory.getInstance().getDao().add(params[0]);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -167,7 +182,7 @@ public class AddEditMovieActivity extends AppCompatActivity {
 		@Override
 		protected Void doInBackground(Pair<String, MovieDescription>... params) {
 			try {
-				MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).edit(params[0].first, params[0].second);
+				MovieLibraryDaoFactory.getInstance().getDao().edit(params[0].first, params[0].second);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -180,7 +195,7 @@ public class AddEditMovieActivity extends AppCompatActivity {
 		@Override
 		protected Void doInBackground(String... params) {
 			try {
-				MovieLibraryDaoFactory.getInstance(AddEditMovieActivity.this).remove(params[0]);
+				MovieLibraryDaoFactory.getInstance().getDao().remove(params[0]);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}

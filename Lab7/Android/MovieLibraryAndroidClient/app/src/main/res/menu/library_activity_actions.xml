@@ -6,4 +6,9 @@
 	      android:icon="@drawable/ic_action_create"
 	      android:title="@string/menu_action_create_title"
 	      app:showAsAction="ifRoom" />
+
+	<item android:id="@+id/action_search"
+	      android:icon="@drawable/ic_action_search"
+	      android:title="@string/menu_action_search_title"
+	      app:showAsAction="ifRoom" />
 </menu>

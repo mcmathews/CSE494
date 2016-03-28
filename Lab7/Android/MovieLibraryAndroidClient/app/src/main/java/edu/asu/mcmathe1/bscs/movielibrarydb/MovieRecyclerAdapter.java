@@ -3,6 +3,7 @@ package edu.asu.mcmathe1.bscs.movielibrarydb;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import java.util.List;
 public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolder> {
 
     private List<String> movieTitles;
+	private View.OnClickListener clickListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public CardView movieListLayout;
@@ -39,13 +41,16 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
         }
     }
 
-    public MovieRecyclerAdapter(List<String> movieTitles) {
+    public MovieRecyclerAdapter(List<String> movieTitles, View.OnClickListener clickListener) {
         this.movieTitles = movieTitles;
+	    this.clickListener = clickListener;
     }
 
     @Override
     public MovieRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
 	    CardView listMovieLayout = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.view_movie_list, parent, false);
+	    listMovieLayout.setOnClickListener(clickListener);
+
 	    return new ViewHolder(listMovieLayout);
     }
 
