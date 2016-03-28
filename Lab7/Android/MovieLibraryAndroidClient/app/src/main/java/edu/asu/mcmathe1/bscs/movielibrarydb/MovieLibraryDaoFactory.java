@@ -3,7 +3,7 @@ package edu.asu.mcmathe1.bscs.movielibrarydb;
 import android.content.Context;
 
 /**
- * Copyright 2015 Michael Mathews
+ * Copyright 2016 Michael Mathews
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ import android.content.Context;
  * limitations under the License.
  *
  * @author Michael Mathews    mailto:Michael.C.Mathews@asu.edu
- * @version 2/26/2016
+ * @version 3/28/2016
  */
 public enum MovieLibraryDaoFactory {
 	INSTANCE;

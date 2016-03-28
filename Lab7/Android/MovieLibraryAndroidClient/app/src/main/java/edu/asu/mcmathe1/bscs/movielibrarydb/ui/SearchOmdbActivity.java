@@ -23,17 +23,42 @@ import edu.asu.mcmathe1.bscs.movielibrarydb.MovieRecyclerAdapter;
 import edu.asu.mcmathe1.bscs.movielibrarydb.OmdbApiClient;
 import edu.asu.mcmathe1.bscs.movielibrarydb.R;
 
+/**
+ * Copyright 2016 Michael Mathews
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @author Michael Mathews    mailto:Michael.C.Mathews@asu.edu
+ * @version 3/28/2016
+ */
 public class SearchOmdbActivity extends AppCompatActivity {
 
+	private List<String> searchResults;
 	private RecyclerView searchResultsView;
+	private TextView noResultsView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_omdb);
 
+		searchResults = new ArrayList<>();
+
 		searchResultsView = (RecyclerView) findViewById(R.id.search_recycler);
 		searchResultsView.setLayoutManager(new LinearLayoutManager(this));
+		searchResultsView.setAdapter(new MovieRecyclerAdapter(searchResults, new SearchResultClickListener()));
+
+		noResultsView = (TextView) findViewById(R.id.noResults);
 	}
 
 	public void handleSearch(View view) {
@@ -73,12 +98,19 @@ public class SearchOmdbActivity extends AppCompatActivity {
 		protected void onPostExecute(List<Pair<String, Integer>> searchResults) {
 			super.onPostExecute(searchResults);
 
-			List<String> displayResults = new ArrayList<>();
-			for (Pair<String, Integer> result : searchResults) {
-				Log.w(getClass().getSimpleName(), "Search result: " + result.first);
-				displayResults.add(result.first + " (" + result.second + ")");
+			SearchOmdbActivity.this.searchResults.clear();
+
+			if (!searchResults.isEmpty()) {
+				noResultsView.setVisibility(View.GONE);
+				for (Pair<String, Integer> result : searchResults) {
+					Log.w(getClass().getSimpleName(), "Search result: " + result.first);
+					SearchOmdbActivity.this.searchResults.add(result.first + " (" + result.second + ")");
+				}
+			} else {
+				noResultsView.setVisibility(View.VISIBLE);
 			}
-			searchResultsView.setAdapter(new MovieRecyclerAdapter(displayResults, new SearchResultClickListener()));
+
+			searchResultsView.getAdapter().notifyDataSetChanged();
 		}
 	}
 

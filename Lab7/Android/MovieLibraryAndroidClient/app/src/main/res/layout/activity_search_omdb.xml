@@ -19,7 +19,7 @@
 		android:id="@+id/search_recycler"
 		android:scrollbars="vertical"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent" android:layout_below="@+id/searchText"/>
+		android:layout_height="match_parent" android:layout_below="@+id/searchText" android:paddingTop="10dip"/>
 
 	<Button
 		style="?android:attr/buttonStyleSmall"
@@ -27,5 +27,12 @@
 		android:layout_height="wrap_content"
 		android:text="Search"
 		android:id="@+id/searchButton" android:layout_alignParentTop="true" android:layout_alignParentEnd="true" android:layout_alignBottom="@+id/searchText" android:onClick="handleSearch"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:text="No results"
+		android:id="@+id/noResults" android:layout_below="@+id/searchText" android:layout_centerHorizontal="true" android:paddingTop="10dp" android:visibility="gone"/>
 
 </RelativeLayout>

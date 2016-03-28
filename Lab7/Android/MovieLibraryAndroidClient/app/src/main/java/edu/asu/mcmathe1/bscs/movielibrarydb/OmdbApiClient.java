@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -20,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Copyright 2015 Michael Mathews
+ * Copyright 2016 Michael Mathews
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +34,7 @@ import java.util.Map;
  * limitations under the License.
  *
  * @author Michael Mathews    mailto:Michael.C.Mathews@asu.edu
- * @version 3/27/2016
+ * @version 3/28/2016
  */
 public class OmdbApiClient {
 
