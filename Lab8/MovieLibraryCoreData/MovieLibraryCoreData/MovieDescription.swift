@@ -25,8 +25,8 @@ class MovieDescription {
     var rated: String
     var released: String
     var runtime: String
-    var genre: String
-    var actors: String
+    var genre: [String]
+    var actors: [String]
     var plot: String
     
     init() {
@@ -35,8 +35,8 @@ class MovieDescription {
         rated = ""
         released = ""
         runtime = ""
-        genre = ""
-        actors = ""
+        genre = []
+        actors = []
         plot = ""
     }
     
@@ -46,8 +46,8 @@ class MovieDescription {
         self.rated = json["Rated"] as! String
         self.released = json["Released"] as! String
         self.runtime = json["Runtime"] as! String
-        self.genre = json["Genre"] as! String
-        self.actors = json["Actors"] as! String
+        self.genre = (json["Genre"] as! String).characters.split(",").map{String.init($0).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())}
+        self.actors = (json["Actors"] as! String).characters.split(",").map{String.init($0).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())}
         self.plot = json["Plot"] as! String
     }
     

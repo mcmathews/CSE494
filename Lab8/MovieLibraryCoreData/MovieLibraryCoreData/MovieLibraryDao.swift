@@ -18,40 +18,69 @@
  */
 
 import Foundation
+import CoreData
+import UIKit
 
 class MovieLibraryDao {
     
     private static var instance: MovieLibraryDao = MovieLibraryDao()
     
-    var url: String
-    var id: Int = 1
-    
     init () {
-        url = NSBundle.mainBundle().infoDictionary!["serverUrl"] as! String
     }
     
     static func getInstance() -> MovieLibraryDao {
         return instance
     }
     
-    func findByTitle(title: String, callback: (MovieDescription) -> Void) -> Void {
+    private func getContext() -> NSManagedObjectContext {
+        return (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    }
+    
+    func findByTitle(title: String) -> MovieDescription {
+        let fetchRequest = NSFetchRequest(entityName: "Movie")
+        
+        var titles: [String] = []
+        do {
+            let results = try getContext().executeFetchRequest(fetchRequest) as! [NSManagedObject]
+            for result in results {
+                titles.append(result.valueForKey("title") as! String)
+            }
+            
+            
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        
+        return titles
+    }
+    
+    func getTitles() -> [String] {
+        let fetchRequest = NSFetchRequest(entityName: "Movie")
+        
+        var titles: [String] = []
+        do {
+            let results = try getContext().executeFetchRequest(fetchRequest) as! [NSManagedObject]
+            for result in results {
+                titles.append(result.valueForKey("title") as! String)
+            }
+            
+            
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        
+        return titles
+    }
+    
+    func add(movie: MovieDescription) {
         // TODO
     }
     
-    
-    func getTitles(callback: ([String]) -> Void) -> Void {
+    func edit(title: String, movie: MovieDescription) {
         // TODO
     }
     
-    func add(movie: MovieDescription, callback: (Bool) -> Void) {
-        // TODO
-    }
-    
-    func edit(title: String, movie: MovieDescription, callback: (Bool) -> Void) {
-        // TODO
-    }
-    
-    func remove(title: String, callback: (Bool) -> Void) {
+    func remove(title: String) {
         // TODO
     }
 }
