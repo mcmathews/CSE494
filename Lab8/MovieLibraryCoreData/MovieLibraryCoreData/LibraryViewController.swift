@@ -74,6 +74,9 @@ class LibraryViewController: UITableViewController {
     
     // used for exit segue
     @IBAction func saveMovie(segue: UIStoryboardSegue) {}
+    
+    // used for exit segue
+    @IBAction func selectSearchResult(segue: UIStoryboardSegue) {}
 
     func loadTitles() {
         self.titles = MovieLibraryDao.getInstance().getTitles()

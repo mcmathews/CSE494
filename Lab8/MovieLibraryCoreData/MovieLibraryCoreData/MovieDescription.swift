@@ -42,7 +42,7 @@ class MovieDescription {
     
     init(json: AnyObject) {
         self.title = json["Title"] as! String
-        self.year = json["Year"] as! Int
+        self.year = Int(json["Year"] as! String)!
         self.rated = json["Rated"] as! String
         self.released = json["Released"] as! String
         self.runtime = json["Runtime"] as! String

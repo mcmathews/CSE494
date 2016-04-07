@@ -14,11 +14,13 @@ class SearchOmdbController: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var searchResultsView: UITableView!
+    @IBOutlet weak var noResultsText: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchBar.delegate = self
+        searchBar.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,19 +52,33 @@ class SearchOmdbController: UITableViewController, UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         OmdbClient().search(searchBar.text!) {
             results in
+            if results.count > 0 {
+                self.noResultsText.hidden = true
+            } else {
+                self.noResultsText.hidden = false
+            }
             self.searchResults = results
             self.searchResultsView.reloadData()
         }
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let cell = sender! as! UITableViewCell
+        let title = cell.textLabel!.text!
+        
+        OmdbClient().get(title) {
+            movie in
+            MovieLibraryDao.getInstance().add(movie)
+            
+            let libraryViewController = segue.destinationViewController as! LibraryViewController
+            
+            libraryViewController.titles.append(title)
+            let indexPath = NSIndexPath(forRow: libraryViewController.titles.count - 1, inSection: 0)
+            libraryViewController.libraryTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
     }
-    */
 
 }
