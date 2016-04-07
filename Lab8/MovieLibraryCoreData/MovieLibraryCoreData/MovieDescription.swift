@@ -25,7 +25,7 @@ class MovieDescription {
     var rated: String
     var released: String
     var runtime: String
-    var genre: [String]
+    var genres: [String]
     var actors: [String]
     var plot: String
     
@@ -35,7 +35,7 @@ class MovieDescription {
         rated = ""
         released = ""
         runtime = ""
-        genre = []
+        genres = []
         actors = []
         plot = ""
     }
@@ -46,13 +46,13 @@ class MovieDescription {
         self.rated = json["Rated"] as! String
         self.released = json["Released"] as! String
         self.runtime = json["Runtime"] as! String
-        self.genre = (json["Genre"] as! String).characters.split(",").map{String.init($0).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())}
+        self.genres = (json["Genre"] as! String).characters.split(",").map{String.init($0).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())}
         self.actors = (json["Actors"] as! String).characters.split(",").map{String.init($0).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())}
         self.plot = json["Plot"] as! String
     }
     
     func toDict() -> [String: AnyObject] {
-        return ["Title": title, "Year": year, "Rated": rated, "Released": released, "Runtime": runtime, "Genre": genre, "Actors": actors, "Plot": plot]
+        return ["Title": title, "Year": year, "Rated": rated, "Released": released, "Runtime": runtime, "Genre": genres, "Actors": actors, "Plot": plot]
     }
     
     func toJsonString() -> String {

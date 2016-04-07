@@ -49,8 +49,8 @@ class AddEditMovieController: UIViewController, UIPickerViewDelegate {
         ratedT.text = movie!.rated
         runtimeT.text = movie!.runtime
         releasedT.text = movie!.released
-        genreT.text = movie!.genre
-        actorsT.text = movie!.actors
+        genreT.text = movie!.genres.joinWithSeparator(", ")
+        actorsT.text = movie!.actors.joinWithSeparator(", ")
         plotT.text = movie!.plot
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "closeKeyboard"))
@@ -101,25 +101,21 @@ class AddEditMovieController: UIViewController, UIPickerViewDelegate {
         movie!.rated = ratedT.text!
         movie!.released = releasedT.text!
         movie!.runtime = runtimeT.text!
-        movie!.genre = genreT.text!
-        movie!.actors = actorsT.text!
+        movie!.genres = genreT.text!.characters.split(",").map{String.init($0).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())}
+        movie!.actors = actorsT.text!.characters.split(",").map{String.init($0).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())}
         movie!.plot = plotT.text! != "Plot" ? plotT.text! : ""
         
         let libraryController = segue.destinationViewController as! LibraryViewController
         if index != nil {
-            MovieLibraryDao.getInstance().edit(titles![index!], movie: movie!) {
-                _ in
-                libraryController.titles[self.index!] = self.movie!.title
-                let indexPath = NSIndexPath(forRow: self.index!, inSection: 0)
-                libraryController.libraryTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            }
+            MovieLibraryDao.getInstance().edit(titles![index!], movie: movie!)
+            libraryController.titles[self.index!] = self.movie!.title
+            let indexPath = NSIndexPath(forRow: self.index!, inSection: 0)
+            libraryController.libraryTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else {
-            MovieLibraryDao.getInstance().add(movie!) {
-                _ in
-                libraryController.titles.append(self.movie!.title)
-                let indexPath = NSIndexPath(forRow: self.titles!.count, inSection: 0)
-                libraryController.libraryTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            }
+            MovieLibraryDao.getInstance().add(movie!)
+            libraryController.titles.append(self.movie!.title)
+            let indexPath = NSIndexPath(forRow: self.titles!.count, inSection: 0)
+            libraryController.libraryTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
 

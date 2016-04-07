@@ -38,24 +38,33 @@ class MovieLibraryDao {
     
     func findByTitle(title: String) -> MovieDescription {
         let fetchRequest = NSFetchRequest(entityName: "Movie")
+        fetchRequest.predicate = NSPredicate(format: "title == %@", title)
         
-        var titles: [String] = []
+        let movie = MovieDescription()
         do {
             let results = try getContext().executeFetchRequest(fetchRequest) as! [NSManagedObject]
-            for result in results {
-                titles.append(result.valueForKey("title") as! String)
-            }
+            let movieResult = results[0]
             
+            movie.title = movieResult.valueForKey("title") as! String
+            movie.year = movieResult.valueForKey("year") as! Int
+            movie.rated = movieResult.valueForKey("rated") as! String
+            movie.runtime = movieResult.valueForKey("runtime") as! String
+            movie.released = movieResult.valueForKey("released") as! String
+            movie.plot = movieResult.valueForKey("plot") as! String
             
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
+            movie.actors = movieResult.mutableSetValueForKey("actors").map{String($0.valueForKey("name")!)}
+            movie.genres = movieResult.mutableSetValueForKey("genres").map{String($0.valueForKey("genre")!)}
+            
+        } catch {
+            print("Could not fetch \(error)")
         }
         
-        return titles
+        return movie
     }
     
     func getTitles() -> [String] {
         let fetchRequest = NSFetchRequest(entityName: "Movie")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creation", ascending: true)]
         
         var titles: [String] = []
         do {
@@ -63,7 +72,6 @@ class MovieLibraryDao {
             for result in results {
                 titles.append(result.valueForKey("title") as! String)
             }
-            
             
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
@@ -73,14 +81,98 @@ class MovieLibraryDao {
     }
     
     func add(movie: MovieDescription) {
-        // TODO
+        let context = getContext()
+        let movieEntity = NSEntityDescription.entityForName("Movie", inManagedObjectContext: context)
+        let movieObj = NSManagedObject(entity: movieEntity!, insertIntoManagedObjectContext: context)
+        
+        movieObj.setValue(movie.title, forKey: "title")
+        movieObj.setValue(movie.year, forKey: "year")
+        movieObj.setValue(movie.rated, forKey: "rated")
+        movieObj.setValue(movie.runtime, forKey: "runtime")
+        movieObj.setValue(movie.released, forKey: "released")
+        movieObj.setValue(movie.plot, forKey: "plot")
+        movieObj.setValue(NSDate(), forKey: "creation")
+        
+        var actors: [NSManagedObject] = []
+        let actorEntity = NSEntityDescription.entityForName("Actor", inManagedObjectContext: context)
+        for actor in movie.actors {
+            let actorObj = NSManagedObject(entity: actorEntity!, insertIntoManagedObjectContext: context)
+            actorObj.setValue(actor, forKey: "name")
+            actors.append(actorObj)
+        }
+        
+        var genres: [NSManagedObject] = []
+        let genreEntity = NSEntityDescription.entityForName("Genre", inManagedObjectContext: context)
+        for genre in movie.genres {
+            let genreObj = NSManagedObject(entity: genreEntity!, insertIntoManagedObjectContext: context)
+            genreObj.setValue(genre, forKey: "genre")
+            genres.append(genreObj)
+        }
+        
+        movieObj.mutableSetValueForKey("actors").addObjectsFromArray(actors)
+        movieObj.mutableSetValueForKey("genres").addObjectsFromArray(genres)
+        
+        do {
+            try context.save()
+        } catch let error as NSError {
+            print("Could not add movie \(error)")
+        }
     }
     
     func edit(title: String, movie: MovieDescription) {
-        // TODO
+        let context = getContext()
+        let fetchRequest = NSFetchRequest(entityName: "Movie")
+        fetchRequest.predicate = NSPredicate(format: "title == %@", title)
+        
+        do {
+            let results = try context.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+            let movieObj = results[0]
+            movieObj.setValue(movie.title, forKey: "title")
+            movieObj.setValue(movie.year, forKey: "year")
+            movieObj.setValue(movie.rated, forKey: "rated")
+            movieObj.setValue(movie.runtime, forKey: "runtime")
+            movieObj.setValue(movie.released, forKey: "released")
+            movieObj.setValue(movie.plot, forKey: "plot")
+            
+            var actors: [NSManagedObject] = []
+            let actorEntity = NSEntityDescription.entityForName("Actor", inManagedObjectContext: context)
+            for actor in movie.actors {
+                let actorObj = NSManagedObject(entity: actorEntity!, insertIntoManagedObjectContext: context)
+                actorObj.setValue(actor, forKey: "name")
+                actors.append(actorObj)
+            }
+            
+            var genres: [NSManagedObject] = []
+            let genreEntity = NSEntityDescription.entityForName("Genre", inManagedObjectContext: context)
+            for genre in movie.genres {
+                let genreObj = NSManagedObject(entity: genreEntity!, insertIntoManagedObjectContext: context)
+                genreObj.setValue(genre, forKey: "genre")
+                genres.append(genreObj)
+            }
+
+            movieObj.mutableSetValueForKey("actors").removeAllObjects()
+            movieObj.mutableSetValueForKey("genres").removeAllObjects()
+            movieObj.mutableSetValueForKey("actors").addObjectsFromArray(actors)
+            movieObj.mutableSetValueForKey("genres").addObjectsFromArray(genres)
+        
+            try context.save()
+        } catch let error as NSError {
+            print("Could not add movie \(error)")
+        }
     }
     
     func remove(title: String) {
-        // TODO
+        let context = getContext()
+        let fetchRequest = NSFetchRequest(entityName: "Movie")
+        fetchRequest.predicate = NSPredicate(format: "title == %@", title)
+        
+        do {
+            let results = try context.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+            let movieObj = results[0]
+            
+            context.deleteObject(movieObj)
+        } catch let error as NSError {
+            print("Could not add movie \(error)")
+        }
     }
 }

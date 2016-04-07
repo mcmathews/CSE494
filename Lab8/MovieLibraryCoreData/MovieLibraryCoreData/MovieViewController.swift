@@ -30,25 +30,23 @@ class MovieViewController: UIViewController {
     @IBOutlet weak var ratedL: UILabel!
     @IBOutlet weak var runtimeL: UILabel!
     @IBOutlet weak var releasedL: UILabel!
-    @IBOutlet weak var genreL: UILabel!
+    @IBOutlet weak var genresL: UILabel!
     @IBOutlet weak var actorsL: UILabel!
     @IBOutlet weak var plotL: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        MovieLibraryDao.getInstance().findByTitle(titles![index!]) {
-            self.movie = $0
-            
-            self.titleL.text! += self.movie!.title
-            self.yearL.text! += self.movie!.year > 0 ? String(self.movie!.year) : ""
-            self.ratedL.text! += self.movie!.rated
-            self.runtimeL.text! += self.movie!.runtime
-            self.releasedL.text! += self.movie!.released
-            self.genreL.text! += self.movie!.genre
-            self.actorsL.text! += self.movie!.actors
-            self.plotL.text! += self.movie!.plot
-        }
+        self.movie = MovieLibraryDao.getInstance().findByTitle(titles![index!])
+        
+        self.titleL.text! += self.movie!.title
+        self.yearL.text! += self.movie!.year > 0 ? String(self.movie!.year) : ""
+        self.ratedL.text! += self.movie!.rated
+        self.runtimeL.text! += self.movie!.runtime
+        self.releasedL.text! += self.movie!.released
+        self.genresL.text! += self.movie!.genres.joinWithSeparator(", ")
+        self.actorsL.text! += self.movie!.actors.joinWithSeparator(", ")
+        self.plotL.text! += self.movie!.plot
     }
 
     override func didReceiveMemoryWarning() {

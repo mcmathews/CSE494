@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LzR-Y0-xYy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LzR-Y0-xYy">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Add Edit Movie Controller-->
@@ -189,7 +190,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="actorsL" destination="DTZ-Lr-sDB" id="wj5-9c-ptL"/>
-                        <outlet property="genreL" destination="1rG-m0-cu0" id="WjI-SV-huL"/>
+                        <outlet property="genresL" destination="1rG-m0-cu0" id="LfU-PJ-WOS"/>
                         <outlet property="plotL" destination="fTk-GV-bXY" id="WPQ-DI-SDN"/>
                         <outlet property="ratedL" destination="ZOG-Ar-O8i" id="G16-Mj-mEf"/>
                         <outlet property="releasedL" destination="A12-Dc-l8y" id="x8j-7p-pro"/>
@@ -201,6 +202,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1178" y="857"/>
+        </scene>
+        <!--Search Omdb Controller-->
+        <scene sceneID="Q9u-87-Vkk">
+            <objects>
+                <tableViewController id="G4U-GR-IYS" customClass="SearchOmdbController" customModule="MovieLibraryCoreData" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ei0-57-moU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="5GP-YK-opi">
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" textLabel="KcB-2Z-pde" detailTextLabel="Oh3-zQ-rLK" style="IBUITableViewCellStyleValue1" id="8Gw-zU-OUM">
+                                <rect key="frame" x="0.0" y="136" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Gw-zU-OUM" id="ajg-bv-0F4">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KcB-2Z-pde">
+                                            <rect key="frame" x="15" y="12" width="32" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Year" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Oh3-zQ-rLK">
+                                            <rect key="frame" x="553" y="12" width="32" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="G4U-GR-IYS" id="MCW-oF-vf6"/>
+                            <outlet property="delegate" destination="G4U-GR-IYS" id="onX-c9-W70"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="searchBar" destination="5GP-YK-opi" id="25d-5R-5pA"/>
+                        <outlet property="searchResultsView" destination="Ei0-57-moU" id="hIq-gr-X9t"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UvM-yI-qdp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1149" y="1597"/>
         </scene>
         <!--Movie Library-->
         <scene sceneID="bEk-wr-kfz">
@@ -238,11 +292,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Movie Library" id="g23-g8-zDA">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gzp-6O-XyV">
-                            <connections>
-                                <segue destination="7n4-hI-Yqv" kind="show" identifier="AddMovie" id="P1p-c4-S03"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="gzp-6O-XyV">
+                                <connections>
+                                    <segue destination="7n4-hI-Yqv" kind="show" identifier="AddMovie" id="P1p-c4-S03"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="search" id="Svz-nB-hf0">
+                                <connections>
+                                    <segue destination="G4U-GR-IYS" kind="show" id="r0P-6A-B9E"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="libraryTableView" destination="JQZ-8a-bJS" id="6lo-IR-UsY"/>

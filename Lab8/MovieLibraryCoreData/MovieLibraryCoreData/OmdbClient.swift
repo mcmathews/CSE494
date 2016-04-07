@@ -21,34 +21,14 @@ import Foundation
 
 class OmdbClient {
     
-    private static var instance: OmdbClient = OmdbClient()
+    private let URL: String = "http://www.omdbapi.com/"
     
-    var url: String
-    var id: Int = 1
-    
-    init () {
-        url = NSBundle.mainBundle().infoDictionary!["serverUrl"] as! String
-    }
-    
-    static func getInstance() -> OmdbClient {
-        return instance
-    }
-    
-    private func callJsonRpcMethod(method: String, params: [AnyObject], callback: ([String: AnyObject]) -> Void) {
-        let request = NSMutableURLRequest(URL: NSURL(string: self.url)!)
-        let payloadDict = ["jsonrpc": "2.0", "id": self.id++, "method": method, "params": params]
-        let payload: NSData
-        do {
-            payload = try NSJSONSerialization.dataWithJSONObject(payloadDict, options: NSJSONWritingOptions(rawValue: 0))
-        } catch let error as NSError {
-            print(error)
-            return
-        }
+    private func makeRequest(params: [String: String], callback: ([String: AnyObject]) -> Void) {
+        let queryParams = params.map{"\($0.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!)=\($1.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!)"}.joinWithSeparator("&")
+        let request = NSMutableURLRequest(URL: NSURL(string: "\(self.URL)?\(queryParams)")!)
         
-        request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.HTTPBody = payload
         
         // task.resume causes the shared session http request to be posted in the background (non-UI Thread)
         // the use of the dispatch_async on the main queue causes the callback to be performed on the UI Thread
@@ -69,31 +49,22 @@ class OmdbClient {
         task.resume()
     }
     
-    func findByTitle(title: String, callback: (MovieDescription) -> Void) -> Void {
-        callJsonRpcMethod("get", params: [title]) { response in callback(MovieDescription(json: response["result"]!))}
+    func search(query: String, callback: ([(title: String, year: Int)]) -> Void) {
+        makeRequest(["s": query]) {
+            response in
+            var searchResults: [(title: String, year: Int)] = []
+            if (response["Response"] as! String) == "True" {
+                for result in response["Search"] as! [[String: AnyObject]] {
+                    if (result["Type"] as! String) == "movie" {
+                        searchResults.append((title: result["Title"] as! String, year: Int(result["Year"] as! String)!))
+                    }
+                }
+            }
+            callback(searchResults)
+        }
     }
     
-    func getTitles(callback: ([String]) -> Void) -> Void {
-        callJsonRpcMethod("getTitles", params: []) { response in callback(response["result"] as! [String]) }
-    }
-    
-    func add(movie: MovieDescription, callback: (Bool) -> Void) {
-        callJsonRpcMethod("add", params: [movie.toDict()]) { response in callback(response["result"] as! Bool) }
-    }
-    
-    func edit(title: String, movie: MovieDescription, callback: (Bool) -> Void) {
-        callJsonRpcMethod("edit", params: [title, movie.toDict()]) { response in callback(response["result"] as! Bool) }
-    }
-    
-    func remove(title: String, callback: (Bool) -> Void) {
-        callJsonRpcMethod("remove", params: [title]) { response in callback(response["result"] as! Bool) }
-    }
-    
-    func save(callback: (Bool) -> Void) {
-        callJsonRpcMethod("save", params: []) { response in callback(response["result"] as! Bool) }
-    }
-    
-    func reset(callback: (Bool) -> Void) {
-        callJsonRpcMethod("reset", params: []) { response in callback(response["result"] as! Bool) }
+    func get(title: String, callback: (MovieDescription -> Void)) {
+        makeRequest(["t": title]) { response in callback(MovieDescription(json: response)) }
     }
 }
