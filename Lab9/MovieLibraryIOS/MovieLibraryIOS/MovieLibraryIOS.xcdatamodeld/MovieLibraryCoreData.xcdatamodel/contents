@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
+    <entity name="Actor" representedClassName="" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Genre" syncable="YES">
+        <attribute name="genre" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Movie" syncable="YES">
+        <attribute name="creation" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="plot" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rated" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="released" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="runtime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="actors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Actor" syncable="YES"/>
+        <relationship name="genres" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Genre" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Actor" positionX="-54" positionY="36" width="128" height="58"/>
+        <element name="Genre" positionX="-416" positionY="39" width="128" height="58"/>
+        <element name="Movie" positionX="-263" positionY="-279" width="128" height="180"/>
+    </elements>
+</model>
