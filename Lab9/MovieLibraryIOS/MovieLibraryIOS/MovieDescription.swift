@@ -28,6 +28,7 @@ class MovieDescription {
     var genres: [String]
     var actors: [String]
     var plot: String
+    var filename: String
     
     init() {
         title = ""
@@ -38,6 +39,7 @@ class MovieDescription {
         genres = []
         actors = []
         plot = ""
+        filename = ""
     }
     
     init(json: AnyObject) {
@@ -49,10 +51,11 @@ class MovieDescription {
         self.genres = (json["Genre"] as! String).characters.split(",").map{String.init($0).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())}
         self.actors = (json["Actors"] as! String).characters.split(",").map{String.init($0).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())}
         self.plot = json["Plot"] as! String
+        self.filename = json["Filename"] as! String
     }
     
     func toDict() -> [String: AnyObject] {
-        return ["Title": title, "Year": year, "Rated": rated, "Released": released, "Runtime": runtime, "Genre": genres, "Actors": actors, "Plot": plot]
+        return ["Title": title, "Year": year, "Rated": rated, "Released": released, "Runtime": runtime, "Genre": genres, "Actors": actors, "Plot": plot, "Filename": filename]
     }
     
     func toJsonString() -> String {

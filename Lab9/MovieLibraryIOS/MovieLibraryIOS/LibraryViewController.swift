@@ -79,8 +79,23 @@ class LibraryViewController: UITableViewController {
     @IBAction func selectSearchResult(segue: UIStoryboardSegue) {}
 
     func loadTitles() {
-        self.titles = MovieLibraryDao.getInstance().getTitles()
-        self.libraryTableView.reloadData()
+        MovieLibraryClient.getInstance().getTitles() {
+            clientTitles in
+            let clientTitlesSet = Set<String>(clientTitles)
+            let daoTitles = MovieLibraryDao.getInstance().getTitles()
+            let daoTitlesSet = Set<String>(daoTitles)
+            
+            let newTitles = clientTitlesSet.subtract(daoTitlesSet)
+            self.titles = [String](daoTitlesSet)
+            for newTitle in newTitles {
+                MovieLibraryClient.getInstance().findByTitle(newTitle) {
+                    MovieLibraryDao.getInstance().add($0)
+                }
+                self.titles.append(newTitle)
+            }
+            
+            self.libraryTableView.reloadData()
+        }
     }
 
     // MARK: - Navigation
