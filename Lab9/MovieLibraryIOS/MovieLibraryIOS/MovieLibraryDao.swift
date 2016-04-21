@@ -82,6 +82,7 @@ class MovieLibraryDao {
     
     func add(movie: MovieDescription) {
         let context = getContext()
+        
         let movieEntity = NSEntityDescription.entityForName("Movie", inManagedObjectContext: context)
         let movieObj = NSManagedObject(entity: movieEntity!, insertIntoManagedObjectContext: context)
         
