@@ -21,7 +21,7 @@ import UIKit
 
 class AddEditMovieController: UIViewController, UIPickerViewDelegate {
     
-    let genres = ["Action", "Adventure", "Children/Family", "Comedy", "Crime", "Drama", "Epic", "Fantasy", "Historical", "Horror", "Musical", "Mystery", "Romance", "Science Fiction", "Spy", "Thriller", "War", "Western"]
+    let genres = ["Action", "Adventure", "Animation", "Children/Family", "Comedy", "Crime", "Drama", "Epic", "Fantasy", "Historical", "Horror", "Musical", "Mystery", "Romance", "Science Fiction", "Spy", "Thriller", "War", "Western"]
     
     var index: Int? = nil
     var titles: [String]? = nil

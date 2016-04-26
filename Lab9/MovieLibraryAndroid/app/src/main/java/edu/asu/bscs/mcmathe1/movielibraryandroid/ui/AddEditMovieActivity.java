@@ -122,6 +122,7 @@ public class AddEditMovieActivity extends AppCompatActivity {
 		movie.setRuntime(runtimeET.getText().toString());
 		movie.setGenres(Arrays.asList((String) genreSpinner.getSelectedItem()));
 		movie.setActors(Arrays.asList(actorsET.getText().toString()));
+		movie.setFilename(filename);
 		movie.setPlot(plotET.getText().toString());
 
 		if (movieIndex > -1) {

@@ -8,6 +8,7 @@
     </entity>
     <entity name="Movie" syncable="YES">
         <attribute name="creation" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="filename" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="plot" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="rated" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="released" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,6 +21,6 @@
     <elements>
         <element name="Actor" positionX="-63" positionY="-18" width="128" height="60"/>
         <element name="Genre" positionX="-54" positionY="0" width="128" height="60"/>
-        <element name="Movie" positionX="-36" positionY="18" width="128" height="180"/>
+        <element name="Movie" positionX="-36" positionY="18" width="128" height="195"/>
     </elements>
 </model>

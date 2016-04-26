@@ -182,15 +182,23 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="qc7-i1-zvy">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="CCN-th-75g">
-                            <connections>
-                                <segue destination="7n4-hI-Yqv" kind="show" identifier="EditMovie" id="wk4-nT-knS"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem enabled="NO" systemItem="play" id="DQa-5X-YvU">
+                                <connections>
+                                    <segue destination="LRu-Pa-aYK" kind="show" id="Xnk-f8-3Yv"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="edit" id="CCN-th-75g">
+                                <connections>
+                                    <segue destination="7n4-hI-Yqv" kind="show" identifier="EditMovie" id="wk4-nT-knS"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="actorsL" destination="DTZ-Lr-sDB" id="wj5-9c-ptL"/>
                         <outlet property="genresL" destination="1rG-m0-cu0" id="LfU-PJ-WOS"/>
+                        <outlet property="playButton" destination="DQa-5X-YvU" id="NeJ-fy-3Cy"/>
                         <outlet property="plotL" destination="fTk-GV-bXY" id="WPQ-DI-SDN"/>
                         <outlet property="ratedL" destination="ZOG-Ar-O8i" id="G16-Mj-mEf"/>
                         <outlet property="releasedL" destination="A12-Dc-l8y" id="x8j-7p-pro"/>
@@ -202,6 +210,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1178" y="857"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="1lb-W9-qPu">
+            <objects>
+                <viewController id="LRu-Pa-aYK" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bAG-84-vwI"/>
+                        <viewControllerLayoutGuide type="bottom" id="BCt-uL-kMK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yYL-FO-2mM" customClass="MoviePlayerController" customModule="MovieLibraryIOS" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j1G-BR-abs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1983" y="857"/>
         </scene>
         <!--Search Omdb Controller-->
         <scene sceneID="Q9u-87-Vkk">
@@ -343,6 +369,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="P1p-c4-S03"/>
+        <segue reference="wk4-nT-knS"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -34,6 +34,8 @@ class MovieViewController: UIViewController {
     @IBOutlet weak var actorsL: UILabel!
     @IBOutlet weak var plotL: UILabel!
     
+    @IBOutlet weak var playButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +49,10 @@ class MovieViewController: UIViewController {
         self.genresL.text! += self.movie!.genres.joinWithSeparator(", ")
         self.actorsL.text! += self.movie!.actors.joinWithSeparator(", ")
         self.plotL.text! += self.movie!.plot
+        
+        if let _ = movie?.filename {
+            playButton.enabled = true
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,6 +67,10 @@ class MovieViewController: UIViewController {
             addEditController.movie = self.movie
             addEditController.titles = self.titles
             addEditController.index = self.index
+        } else if segue.identifier == "PlayMovie" {
+            let moviePlayerController = segue.destinationViewController as! MoviePlayerController
+            
+            moviePlayerController.filename = movie?.filename!
         }
     }
 

@@ -50,6 +50,7 @@ class MovieLibraryDao {
             movie.rated = movieResult.valueForKey("rated") as! String
             movie.runtime = movieResult.valueForKey("runtime") as! String
             movie.released = movieResult.valueForKey("released") as! String
+            movie.filename = movieResult.valueForKey("filename") as? String
             movie.plot = movieResult.valueForKey("plot") as! String
             
             movie.actors = movieResult.mutableSetValueForKey("actors").map{String($0.valueForKey("name")!)}
@@ -91,6 +92,7 @@ class MovieLibraryDao {
         movieObj.setValue(movie.rated, forKey: "rated")
         movieObj.setValue(movie.runtime, forKey: "runtime")
         movieObj.setValue(movie.released, forKey: "released")
+        movieObj.setValue(movie.filename, forKey: "filename")
         movieObj.setValue(movie.plot, forKey: "plot")
         movieObj.setValue(NSDate(), forKey: "creation")
         
@@ -133,6 +135,7 @@ class MovieLibraryDao {
             movieObj.setValue(movie.rated, forKey: "rated")
             movieObj.setValue(movie.runtime, forKey: "runtime")
             movieObj.setValue(movie.released, forKey: "released")
+            movieObj.setValue(movie.filename, forKey: "filename")
             movieObj.setValue(movie.plot, forKey: "plot")
             
             var actors: [NSManagedObject] = []

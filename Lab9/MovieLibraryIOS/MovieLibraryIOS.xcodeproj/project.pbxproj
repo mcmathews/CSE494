@@ -23,6 +23,7 @@
 		9AC6A4751CC050A900795482 /* MovieLibraryDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6A46C1CC050A900795482 /* MovieLibraryDao.swift */; };
 		9AC6A4761CC050A900795482 /* OmdbClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6A46D1CC050A900795482 /* OmdbClient.swift */; };
 		9AC6A4771CC050A900795482 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AC6A46E1CC050A900795482 /* Main.storyboard */; };
+		9ADBD9C21CD0231A00CAB9D6 /* Server.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9ADBD9C11CD0231A00CAB9D6 /* Server.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		9AC6A46C1CC050A900795482 /* MovieLibraryDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieLibraryDao.swift; sourceTree = "<group>"; };
 		9AC6A46D1CC050A900795482 /* OmdbClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmdbClient.swift; sourceTree = "<group>"; };
 		9AC6A46E1CC050A900795482 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		9ADBD9C11CD0231A00CAB9D6 /* Server.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Server.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				9AC6A43F1CC04FA300795482 /* Assets.xcassets */,
 				9AC6A4411CC04FA300795482 /* LaunchScreen.storyboard */,
 				9AC6A4441CC04FA400795482 /* Info.plist */,
+				9ADBD9C11CD0231A00CAB9D6 /* Server.plist */,
 				9A56A0F01CC6E5EB00E8FAA9 /* MovieLibraryIOS.xcdatamodeld */,
 			);
 			path = MovieLibraryIOS;
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AC6A4771CC050A900795482 /* Main.storyboard in Resources */,
+				9ADBD9C21CD0231A00CAB9D6 /* Server.plist in Resources */,
 				9AC6A4431CC04FA400795482 /* LaunchScreen.storyboard in Resources */,
 				9AC6A4401CC04FA300795482 /* Assets.xcassets in Resources */,
 			);
