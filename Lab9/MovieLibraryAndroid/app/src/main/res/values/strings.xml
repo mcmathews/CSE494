@@ -1,0 +1,29 @@
+<resources>
+	<string name="app_name">Movie Library</string>
+	<string name="host">10.0.2.2</string>
+	<string name="json_rpc_port">8080</string>
+	<string name="media_port">8888</string>
+	<string name="menu_action_create_title">Create</string>
+	<string name="menu_action_search_title">Search</string>
+	<string name="menu_action_play">Play</string>
+	<string-array name="genres">
+		<item>Action</item>
+		<item>Adventure</item>
+		<item>Children/Family</item>
+		<item>Comedy</item>
+		<item>Crime</item>
+		<item>Drama</item>
+		<item>Epic</item>
+		<item>Fantasy</item>
+		<item>Historical</item>
+		<item>Horror</item>
+		<item>Musical</item>
+		<item>Mystery</item>
+		<item>Romance</item>
+		<item>Science Fiction</item>
+		<item>Spy</item>
+		<item>Thriller</item>
+		<item>War</item>
+		<item>Western</item>
+	</string-array>
+</resources>

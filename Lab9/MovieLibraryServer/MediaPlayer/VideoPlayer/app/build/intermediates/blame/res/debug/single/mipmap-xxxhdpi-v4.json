@@ -1,6 +1,10 @@
 [
     {
-        "merged": "/Users/lindquis/Courses/Ser423/Examples/Spring2016/Android/VideoPlayer/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi-v4/ic_launcher.png",
-        "source": "/Users/lindquis/Courses/Ser423/Examples/Spring2016/Android/VideoPlayer/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "C:\\Users\\mcmsp_000\\Documents\\Classes\\CSE494\\Lab9\\MovieLibraryServer\\MediaPlayer\\VideoPlayer\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\mcmsp_000\\Documents\\Classes\\CSE494\\Lab9\\MovieLibraryServer\\MediaPlayer\\VideoPlayer\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\lindquis\\Courses\\Ser423\\Examples\\Spring2016\\Android\\VideoPlayer\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\lindquis\\Courses\\Ser423\\Examples\\Spring2016\\Android\\VideoPlayer\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
     }
 ]

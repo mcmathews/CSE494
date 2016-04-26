@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/Users/lindquis/Courses/Ser423/Examples/Spring2016/Android/VideoPlayer/app/build/intermediates/res/merged/debug/values-w820dp-v13/values-w820dp-v13.xml",
+        "outputFile": "C:\\Users\\mcmsp_000\\Documents\\Classes\\CSE494\\Lab9\\MovieLibraryServer\\MediaPlayer\\VideoPlayer\\app\\build\\intermediates\\res\\merged\\debug\\values-w820dp-v13\\values-w820dp-v13.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,31 @@
                     "endOffset": 108
                 },
                 "from": {
-                    "file": "/Users/lindquis/Courses/Ser423/Examples/Spring2016/Android/VideoPlayer/app/src/main/res/values-w820dp/dimens.xml",
+                    "file": "C:\\Users\\mcmsp_000\\Documents\\Classes\\CSE494\\Lab9\\MovieLibraryServer\\MediaPlayer\\VideoPlayer\\app\\src\\main\\res\\values-w820dp\\dimens.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 295,
+                        "endColumn": 57,
+                        "endOffset": 348
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "C:\\Users\\lindquis\\Courses\\Ser423\\Examples\\Spring2016\\Android\\VideoPlayer\\app\\build\\intermediates\\res\\merged\\debug\\values-w820dp-v13\\values-w820dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 57,
+                    "endOffset": 108
+                },
+                "from": {
+                    "file": "C:\\Users\\lindquis\\Courses\\Ser423\\Examples\\Spring2016\\Android\\VideoPlayer\\app\\src\\main\\res\\values-w820dp\\dimens.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
