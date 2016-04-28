@@ -1,10 +1,21 @@
-//
-//  MoviePlayerController.swift
-//  MovieLibraryIOS
-//
-//  Created by mcmathe1 on 4/21/16.
-//  Copyright © 2016 mcmathe1. All rights reserved.
-//
+/**
+ * Copyright 2016 Michael Mathews
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @author   Michael Mathews    mailto:Michael.C.Mathews@asu.edu
+ * @version 4/27/16
+ */
 
 import UIKit
 import AVKit
@@ -62,7 +73,7 @@ class MoviePlayerController: AVPlayerViewController, NSURLSessionDelegate {
         let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         let documentDirectoryPath: String = path[0]
         let fileMgr = NSFileManager()
-        let destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/\(filename)"))
+        let destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/\(filename!)"))
         
         if fileMgr.fileExistsAtPath(destinationURLForFile.path!) {
             NSLog("destination file url: \(destinationURLForFile.path!) exists. Deleting")
@@ -82,7 +93,7 @@ class MoviePlayerController: AVPlayerViewController, NSURLSessionDelegate {
         }
     }
     
-//    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-//        NSLog("did write portion of file: \(Float(totalBytesWritten)/Float(totalBytesExpectedToWrite))")
-//    }
+    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        NSLog("did write portion of file: \(Float(totalBytesWritten)/Float(totalBytesExpectedToWrite))")
+    }
 }
