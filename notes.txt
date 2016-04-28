@@ -1,0 +1,15 @@
+Topics
+	JSON RPC
+	Networking
+	Objective C
+		at least be able to read basic code
+	Bonjour
+		Apple discovery of network devices
+	Sync vs Async
+		How these things interact with UI
+		AsyncTask and Threads
+		Callbacks or delegate
+	Ducking
+		multiple audio sources
+	ARC (Automatic Reference Counting) vs Garbage Collection
+	Midterm
